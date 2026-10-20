@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maklum Balas TLSM-BASIC 1/2026</title>
+<style>
+:root {
+  --site-primary: #102b46;
+  --site-on-primary: #ffffff;
+  --site-secondary: #d8b66a;
+  --site-on-secondary: #17202b;
+  --site-background: #f2f5f8;
+  --site-on-background: #172638;
+  --site-font-body: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --site-font-heading: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --site-heading-scale: 1;
+  --site-spacing-scale: 1;
+  --site-radius-scale: 1;
+  --site-decoration-opacity: 1;
+  color-scheme: light dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--site-font-body); background: light-dark(#f2f5f8,#101923); color: light-dark(#172638,#edf3f9); }
+.app { min-height: 100vh; width: 100%; background-color: var(--site-background); color: var(--site-on-background); border-radius: 0; }
+.hero { background: var(--site-primary); color: var(--site-on-primary); padding: calc(34px * var(--site-spacing-scale)) 22px calc(28px * var(--site-spacing-scale)); position: relative; overflow: hidden; }
+.hero:after { content:""; position:absolute; width:240px; height:240px; border:1px solid var(--site-secondary); border-radius:50%; right:-65px; top:-105px; opacity:calc(.28 * var(--site-decoration-opacity)); box-shadow:0 0 0 24px rgba(216,182,106,.05),0 0 0 50px rgba(216,182,106,.04); }
+.hero-inner, main { max-width: 850px; margin: 0 auto; position: relative; z-index: 1; }
+.kicker { text-transform: uppercase; letter-spacing: .16em; font-size: .76rem; color: var(--site-secondary); font-weight: 800; }
+h1 { font-family:var(--site-font-heading); font-size:calc(2rem * var(--site-heading-scale)); line-height:1.13; margin:12px 0 10px; }
+.hero p { max-width: 620px; color:#e1e9f1; line-height:1.65; margin:0; }
+.hero-meta { display:flex; flex-wrap:wrap; gap:9px; margin-top:20px; }
+.pill { border:1px solid rgba(255,255,255,.28); padding:7px 11px; border-radius:99px; font-size:.82rem; }
+main { padding:24px 16px 48px; }
+.notice { background:light-dark(#fff9e9,#302a1b); border:1px solid light-dark(#e9d8a8,#66572d); padding:14px 16px; border-radius:12px; margin-bottom:18px; line-height:1.5; font-size:.91rem; }
+.section { background:light-dark(#ffffff,#18232f); border:1px solid light-dark(#dce4ec,#2c3b4b); border-radius:calc(16px * var(--site-radius-scale)); margin-bottom:16px; overflow:hidden; }
+.section-head { padding:18px 20px 12px; border-bottom:1px solid light-dark(#e8edf2,#2c3b4b); }
+.section-head h2 { font-size:1.12rem; margin:0 0 5px; }
+.section-head p { margin:0; color:light-dark(#5a6b7d,#b6c4d3); font-size:.9rem; line-height:1.5; }
+.section-body { padding:20px; }
+.field { margin-bottom:19px; }
+.field:last-child { margin-bottom:0; }
+label, .question { display:block; font-weight:700; margin-bottom:9px; line-height:1.45; }
+.optional { color:light-dark(#68798a,#aab8c6); font-weight:400; font-size:.84rem; }
+input[type=text], select, textarea { width:100%; border:1px solid light-dark(#cbd5df,#425466); border-radius:9px; padding:12px 13px; background:light-dark(#fff,#111b25); color:light-dark(#172638,#edf3f9); font:inherit; }
+textarea { resize:vertical; min-height:92px; }
+.scale { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:8px; }
+.scale label { border:1px solid light-dark(#d4dde6,#3a4b5d); border-radius:10px; padding:10px 4px; text-align:center; cursor:pointer; margin:0; font-size:.88rem; font-weight:600; }
+.scale input { display:block; margin:0 auto 7px; accent-color:var(--site-primary); }
+.scale label:has(input:checked) { border-color:var(--site-secondary); background:light-dark(#fff7df,#3b3321); box-shadow:inset 0 0 0 1px var(--site-secondary); }
+.scale-ends { display:flex; justify-content:space-between; font-size:.75rem; color:light-dark(#68798a,#aab8c6); margin-top:7px; }
+.choice-list { display:grid; gap:9px; }
+.choice-list label { display:flex; gap:10px; align-items:flex-start; font-weight:500; margin:0; }
+.choice-list input { margin-top:4px; accent-color:var(--site-primary); }
+.btnrow { display:flex; gap:10px; flex-wrap:wrap; }
+button { font:inherit; cursor:pointer; border:0; border-radius:10px; padding:13px 18px; font-weight:750; }
+.primary { background:var(--site-primary); color:var(--site-on-primary); flex:1; min-width:200px; }
+.secondary { background:light-dark(#e4eaf0,#263747); color:light-dark(#172638,#edf3f9); }
+.progress { height:6px; border-radius:99px; background:light-dark(#dce4ec,#2c3b4b); overflow:hidden; margin:0 0 18px; }
+.progress > div { height:100%; width:0; background:var(--site-secondary); transition:width .2s; }
+.result { display:none; margin-top:18px; padding:18px; border-radius:12px; background:light-dark(#edf7f1,#173126); border:1px solid light-dark(#b9dec9,#2d6249); }
+.result h3 { margin:0 0 8px; }
+.result p { line-height:1.55; }
+footer { text-align:center; font-size:.82rem; color:light-dark(#647588,#aab8c6); padding:12px 8px 28px; }
+@media(min-width:650px){ .hero{padding:42px 28px 34px} h1{font-size:calc(2.6rem * var(--site-heading-scale))} main{padding:28px 20px 52px} .section-body{padding:22px 24px} }
+@media(max-width:420px){ .scale{gap:4px}.scale label{font-size:.78rem;padding:9px 2px}.hero{padding-left:18px;padding-right:18px} }
+</style>
+</head>
+<body>
+<div class="app">
+<header class="hero">
+  <div class="hero-inner">
+    <div class="kicker">Hospital Kuala Nerang</div>
+    <h1>Borang Maklum Balas<br>TLSM-BASIC 1/2026</h1>
+    <p>Maklum balas anda membantu urus setia menilai keberkesanan kursus dan menambah baik latihan pengurusan awal pesakit trauma pada masa akan datang.</p>
+    <div class="hero-meta"><span class="pill">Unit Kecemasan dan Trauma</span><span class="pill">Anggaran 3–5 minit</span></div>
+  </div>
+</header>
+<main>
+  <div class="notice"><strong>Nota:</strong> Sila jawab berdasarkan pengalaman anda sepanjang kursus. Untuk penilaian skala, pilih satu skor bagi setiap kenyataan. Laman pratonton ini tidak menghantar atau menyimpan respons ke pelayan.</div>
+  <div class="progress" aria-label="Kemajuan borang"><div id="progressBar"></div></div>
+  <form id="feedbackForm">
+    <section class="section">
+      <div class="section-head"><h2>Bahagian A — Maklumat peserta</h2><p>Maklumat ini membantu urus setia memahami profil peserta.</p></div>
+      <div class="section-body">
+        <div class="field"><label for="role">1. Jawatan</label><select id="role" name="Jawatan" required><option value="">Pilih jawatan</option><option>Pegawai Perubatan (MO)</option><option>Penolong Pegawai Perubatan (PPP)</option><option>Jururawat</option><option>Penolong Pegawai Perawatan Kesihatan (PPK)</option><option>Lain-lain</option></select></div>
+        <div class="field"><label for="experience">2. Pengalaman bekerja dalam bidang kecemasan dan trauma</label><select id="experience" name="Pengalaman" required><option value="">Pilih tempoh pengalaman</option><option>Kurang 1 tahun</option><option>1–5 tahun</option><option>6–10 tahun</option><option>Lebih 10 tahun</option></select></div>
+        <div class="field"><span class="question">3. Pernahkah anda menghadiri kursus pengurusan trauma sebelum ini?</span><div class="choice-list"><label><input type="radio" name="Kursus trauma terdahulu" value="Ya" required> Ya</label><label><input type="radio" name="Kursus trauma terdahulu" value="Tidak"> Tidak</label></div></div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-head"><h2>Bahagian B — Penilaian kursus</h2><p>Pilih satu skor bagi setiap kenyataan.</p></div>
+      <div class="section-body" id="courseQuestions"></div>
+    </section>
+    <section class="section">
+      <div class="section-head"><h2>Bahagian C — Keberkesanan pembelajaran</h2><p>Nilai pemahaman, kemahiran dan keyakinan anda selepas mengikuti kursus.</p></div>
+      <div class="section-body" id="learningQuestions"></div>
+    </section>
+    <section class="section">
+      <div class="section-head"><h2>Bahagian D — Penilaian keseluruhan</h2><p>Kongsikan pandangan dan cadangan anda.</p></div>
+      <div class="section-body">
+        <div class="field"><span class="question">18. Secara keseluruhan, sejauh manakah anda berpuas hati dengan kursus ini?</span><div class="choice-list"><label><input type="radio" name="Kepuasan keseluruhan" value="Sangat tidak berpuas hati" required> Sangat tidak berpuas hati</label><label><input type="radio" name="Kepuasan keseluruhan" value="Tidak berpuas hati"> Tidak berpuas hati</label><label><input type="radio" name="Kepuasan keseluruhan" value="Sederhana"> Sederhana</label><label><input type="radio" name="Kepuasan keseluruhan" value="Puas hati"> Puas hati</label><label><input type="radio" name="Kepuasan keseluruhan" value="Sangat berpuas hati"> Sangat berpuas hati</label></div></div>
+        <div class="field"><span class="question">19. Adakah anda akan mengesyorkan kursus ini kepada rakan sekerja?</span><div class="choice-list"><label><input type="radio" name="Cadangan kepada rakan sekerja" value="Ya" required> Ya</label><label><input type="radio" name="Cadangan kepada rakan sekerja" value="Tidak pasti"> Tidak pasti</label><label><input type="radio" name="Cadangan kepada rakan sekerja" value="Tidak"> Tidak</label></div></div>
+        <div class="field"><label for="best">20. Apakah aspek terbaik dalam kursus ini?</label><textarea id="best" name="Aspek terbaik" placeholder="Contoh: latihan praktikal, simulasi kes trauma, penyampaian penceramah..."></textarea></div>
+        <div class="field"><label for="improve">21. Apakah aspek yang perlu ditambah baik?</label><textarea id="improve" name="Penambahbaikan" placeholder="Nyatakan cadangan penambahbaikan..."></textarea></div>
+        <div class="field"><label for="future">22. Apakah topik atau latihan trauma yang anda ingin pelajari pada masa akan datang?</label><textarea id="future" name="Topik masa hadapan" placeholder="Contoh: airway management, trauma resuscitation, bleeding control..."></textarea></div>
+      </div>
+    </section>
+    <div class="btnrow"><button type="submit" class="primary">Semak & jana ringkasan maklum balas</button><button type="reset" class="secondary">Kosongkan borang</button></div>
+  </form>
+  <section class="result" id="result" aria-live="polite"><h3>Ringkasan respons anda</h3><p id="resultText"></p><div class="btnrow"><button type="button" class="primary" id="copyBtn">Salin ringkasan</button><button type="button" class="secondary" id="editBtn">Kembali mengedit</button></div><p><strong>Penting:</strong> Ringkasan ini hanya berada dalam sesi pratonton. Untuk mengumpul respons peserta sebenar, sambungkan borang ini kepada Google Forms atau sistem pangkalan data sebelum dikongsi secara rasmi.</p></section>
+  <footer>Unit Kecemasan dan Trauma · Hospital Kuala Nerang</footer>
+</main>
+</div>
+<script>
+const courseQuestions = [
+"Objektif kursus TLSM-BASIC diterangkan dengan jelas.",
+"Kandungan kursus bersesuaian dengan keperluan pengurusan awal pesakit trauma.",
+"Penceramah mempunyai pengetahuan dan kemahiran yang baik dalam bidang trauma.",
+"Penyampaian penceramah jelas, teratur dan mudah difahami.",
+"Bahan pembelajaran membantu pemahaman terhadap topik yang diajar.",
+"Tempoh kursus adalah bersesuaian dengan kandungan yang disampaikan.",
+"Pengurusan dan penyelarasan kursus berjalan dengan lancar."
+];
+const learningQuestions = [
+"Saya lebih memahami pendekatan sistematik penilaian awal pesakit trauma.",
+"Saya lebih memahami prinsip primary survey dan secondary survey.",
+"Saya dapat mengenal pasti keadaan trauma yang mengancam nyawa dengan lebih baik.",
+"Saya lebih memahami keutamaan intervensi awal dalam pengurusan pesakit trauma.",
+"Latihan praktikal atau simulasi membantu meningkatkan kemahiran saya.",
+"Saya lebih yakin untuk terlibat dalam pengurusan awal pesakit trauma selepas mengikuti kursus ini.",
+"Saya dapat mengaplikasikan ilmu yang dipelajari dalam persekitaran klinikal sebenar."
+];
+function renderQuestions(targetId, questions, prefix) {
+  const target = document.getElementById(targetId);
+  questions.forEach((q, i) => {
+    const number = prefix + i + 1;
+    const field = document.createElement('div');
+    field.className = 'field';
+    field.innerHTML = `<span class="question">${number}. ${q}</span><div class="scale" role="radiogroup" aria-label="${q.replace(/"/g,'&quot;')}">${[1,2,3,4,5].map(n=>`<label><input type="radio" name="q${number}" value="${n}" required>${n}</label>`).join('')}</div><div class="scale-ends"><span>1 — Sangat tidak setuju</span><span>5 — Sangat setuju</span></div>`;
+    target.appendChild(field);
+  });
+}
+renderQuestions('courseQuestions', courseQuestions, 4);
+renderQuestions('learningQuestions', learningQuestions, 11);
+const form = document.getElementById('feedbackForm');
+const progressBar = document.getElementById('progressBar');
+function updateProgress() {
+  const required = [...form.querySelectorAll('[required]')];
+  const groups = new Set(required.filter(el=>el.type==='radio').map(el=>el.name));
+  let done = 0, total = 0;
+  required.forEach(el => {
+    if (el.type === 'radio') return;
+    total++; if (el.value) done++;
+  });
+  groups.forEach(name => { total++; if(form.querySelector(`input[name="${CSS.escape(name)}"]:checked`)) done++; });
+  const radioNames = new Set([...form.querySelectorAll('input[type=radio][required]')].map(el=>el.name));
+  radioNames.forEach(name => { if(!groups.has(name)) { total++; if(form.querySelector(`input[name="${CSS.escape(name)}"]:checked`)) done++; } });
+  const questionGroups = new Set([...form.querySelectorAll('#courseQuestions input[type=radio], #learningQuestions input[type=radio]')].map(el=>el.name));
+  questionGroups.forEach(name => { total++; if(form.querySelector(`input[name="${name}"]:checked`)) done++; });
+  progressBar.style.width = (total ? Math.round(done/total*100) : 0) + '%';
+}
+form.addEventListener('change', updateProgress);
+form.addEventListener('input', updateProgress);
+form.addEventListener('reset', () => { setTimeout(()=>{document.getElementById('result').style.display='none'; updateProgress();},0); });
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  if(!form.reportValidity()) return;
+  const data = new FormData(form);
+  let lines = ['MAKLUM BALAS TLSM-BASIC 1/2026','Hospital Kuala Nerang','',`Jawatan: ${data.get('Jawatan')}`,`Pengalaman: ${data.get('Pengalaman')}`,`Pernah kursus trauma: ${data.get('Kursus trauma terdahulu')}`,'','BAHAGIAN B — PENILAIAN KURSUS'];
+  courseQuestions.forEach((q,i)=>lines.push(`${i+5}. ${q} Skor: ${data.get('q'+(i+5))}`));
+  lines.push('','BAHAGIAN C — KEBERKESANAN PEMBELAJARAN');
+  learningQuestions.forEach((q,i)=>lines.push(`${i+12}. ${q} Skor: ${data.get('q'+(i+12))}`));
+  lines.push('',`Kepuasan keseluruhan: ${data.get('Kepuasan keseluruhan')}`,`Cadangkan kepada rakan: ${data.get('Cadangan kepada rakan sekerja')}`,`Aspek terbaik: ${data.get('Aspek terbaik')||'Tiada jawapan'}`,`Penambahbaikan: ${data.get('Penambahbaikan')||'Tiada jawapan'}`,`Topik masa hadapan: ${data.get('Topik masa hadapan')||'Tiada jawapan'}`);
+  document.getElementById('resultText').textContent = lines.join('\n');
+  document.getElementById('resultText').style.whiteSpace = 'pre-line';
+  document.getElementById('result').style.display='block';
+  document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+});
+document.getElementById('copyBtn').addEventListener('click', async()=>{
+  const text = document.getElementById('resultText').textContent;
+  try { await navigator.clipboard.writeText(text); document.getElementById('copyBtn').textContent='Ringkasan disalin'; }
+  catch(e) { const range=document.createRange(); range.selectNodeContents(document.getElementById('resultText')); const sel=window.getSelection(); sel.removeAllRanges(); sel.addRange(range); document.getElementById('copyBtn').textContent='Pilih teks untuk disalin'; }
+});
+document.getElementById('editBtn').addEventListener('click',()=>{document.getElementById('result').style.display='none';form.scrollIntoView({behavior:'smooth',block:'start'});});
+updateProgress();
+</script>
+</body>
+</html>'''
+
