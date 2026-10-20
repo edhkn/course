@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kursus Trauma & Kecemasan | Jabatan Kecemasan Hospital Kuala Nerang</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0F2027;
+            --secondary: #203A43;
+            --accent: #D4AF37;
+            --light: #F8F9FA;
+            --text-dark: #1A1A1A;
+            --text-muted: #6C757D;
+            --white: #FFFFFF;
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Memastikan footer sentiasa di bawah */
+        }
+
+        /* --- Navigasi --- */
+        nav {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 12px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .dept-logo {
+            height: 45px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .logo-text span {
+            display: block;
+            font-size: 0.8rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            position: relative;
+            flex: 1; /* Supaya hero mengisi ruang dan menolak footer ke bawah */
+            display: flex;
+            align-items: center;
+            padding: 120px 5% 80px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            border: 2px solid rgba(212, 175, 55, 0.1);
+            box-shadow: 0 0 0 40px rgba(212, 175, 55, 0.05), 0 0 0 80px rgba(212, 175, 55, 0.02);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .kicker {
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            line-height: 1.1;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 40px;
+            max-width: 600px;
+            font-weight: 300;
+        }
+
+        /* --- Kad Pautan (Portal Akses) --- */
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .portal-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius);
+            padding: 30px;
+            text-decoration: none;
+            color: var(--white);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .portal-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .portal-card::after {
+            content: '→';
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            font-size: 1.5rem;
+            color: var(--accent);
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: var(--transition);
+        }
+
+        .portal-card:hover::after {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .portal-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .portal-card p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 0;
+            flex-grow: 1;
+        }
+
+        /* --- Footer Moden --- */
+        .site-footer {
+            background-color: var(--primary); /* Menggunakan warna tema utama */
+            color: rgba(255, 255, 255, 0.6);
+            padding: 30px 5% 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.85rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 10px;
+        }
+
+        .footer-divider {
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent); /* Warna emas */
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        .footer-credits {
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+        
+        .footer-credits span {
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .footer-links {
+            margin-top: 10px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        @media (min-width: 768px) {
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+            .footer-divider {
+                display: none; /* Sembunyikan divider pada skrin besar */
+            }
+            .footer-links {
+                margin-top: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero { padding-top: 120px; }
+            .hero h1 { font-size: 2.5rem; }
+            nav { padding: 15px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigasi Utama -->
+    <nav>
+        <div class="logo-group">
+            <!-- Gantikan MASUKKAN_ID_GAMBAR_DI_SINI dengan ID Google Drive anda -->
+            <img src="https://drive.google.com/uc?id=1n78ecY2IkWzAM5xbhbu6D_1O23L0kQu7" alt="Logo Jabatan" class="dept-logo">
+            
+            <div class="logo-text">
+                Hospital Kuala Nerang
+                <span>Jabatan Kecemasan & Trauma</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Seksyen Utama (Hero) -->
+    <header class="hero">
+        <div class="hero-content">
+            <span class="kicker">Pusat Kecemerlangan Pendidikan Berterusan</span>
+            <h1>Pusat Latihan<br>Trauma & Kecemasan</h1>
+            <p>Platform berpusat untuk pengurusan kursus, pendaftaran peserta, rekod kehadiran, dan penilaian modul bagi memperkasa kemahiran klinikal anggota kesihatan.</p>
+
+            <!-- Grid Pautan Akses -->
+            <div class="portal-grid">
+                
+                <a href="registration.html" class="portal-card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 14h-3v3h-2v-3H8v-2h3v-3h2v3h3v2zm-3-7V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <h3>Pendaftaran Kursus</h3>
+                    <p>Daftar sebagai peserta untuk modul latihan akan datang.</p>
+                </a>
+
+                <a href="attendance.html" class="portal-card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                    </div>
+                    <h3>Rekod Kehadiran</h3>
+                    <p>Sahkan kehadiran harian anda sepanjang kursus berlangsung.</p>
+                </a>
+
+                <a href="https://edhkn.github.io/course/feedback.html" class="portal-card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17l-.59.59-.58.58V4h16v12zm-9.5-2H13v-2h-2.5v2zm0-3H13V7h-2.5v4z"/></svg>
+                    </div>
+                    <h3>Maklum Balas (CME)</h3>
+                    <p>Kongsikan penilaian anda untuk penambahbaikan berterusan.</p>
+                </a>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Kaki Halaman (Footer Moden) -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-credits">
+                Dibangunkan oleh <span>Yassin Razak</span> &copy; 2026<br>
+                EDHKN &middot; Hospital Kuala Nerang
+            </div>
+            
+            <div class="footer-divider"></div>
+            
+            <!-- Pilihan: Pautan sokongan jika diperlukan (boleh dipadam jika tidak mahu) -->
+            <div class="footer-links">
+                <a href="https://edhkn.github.io/">Laman Utama EDHKN</a>
+                <a href="mailto:edhkn@moh.gov.my">Hubungi Kami</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
