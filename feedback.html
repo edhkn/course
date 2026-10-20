@@ -53,14 +53,16 @@ textarea { resize:vertical; min-height:92px; }
 .choice-list label { display:flex; gap:10px; align-items:flex-start; font-weight:500; margin:0; }
 .choice-list input { margin-top:4px; accent-color:var(--site-primary); }
 .btnrow { display:flex; gap:10px; flex-wrap:wrap; }
-button { font:inherit; cursor:pointer; border:0; border-radius:10px; padding:13px 18px; font-weight:750; }
+button { font:inherit; cursor:pointer; border:0; border-radius:10px; padding:13px 18px; font-weight:750; transition: opacity .2s; }
+button:disabled { opacity: 0.6; cursor: not-allowed; }
 .primary { background:var(--site-primary); color:var(--site-on-primary); flex:1; min-width:200px; }
 .secondary { background:light-dark(#e4eaf0,#263747); color:light-dark(#172638,#edf3f9); }
 .progress { height:6px; border-radius:99px; background:light-dark(#dce4ec,#2c3b4b); overflow:hidden; margin:0 0 18px; }
 .progress > div { height:100%; width:0; background:var(--site-secondary); transition:width .2s; }
 .result { display:none; margin-top:18px; padding:18px; border-radius:12px; background:light-dark(#edf7f1,#173126); border:1px solid light-dark(#b9dec9,#2d6249); }
-.result h3 { margin:0 0 8px; }
+.result h3 { margin:0 0 8px; color: light-dark(#1e6b45,#4ade80); }
 .result p { line-height:1.55; }
+.summary-box { background: light-dark(#ffffff,#111b25); padding: 14px; border-radius: 8px; border: 1px solid light-dark(#cbd5df,#425466); margin: 14px 0; font-size: 0.9rem; }
 footer { text-align:center; font-size:.82rem; color:light-dark(#647588,#aab8c6); padding:12px 8px 28px; }
 @media(min-width:650px){ .hero{padding:42px 28px 34px} h1{font-size:calc(2.6rem * var(--site-heading-scale))} main{padding:28px 20px 52px} .section-body{padding:22px 24px} }
 @media(max-width:420px){ .scale{gap:4px}.scale label{font-size:.78rem;padding:9px 2px}.hero{padding-left:18px;padding-right:18px} }
@@ -77,7 +79,7 @@ footer { text-align:center; font-size:.82rem; color:light-dark(#647588,#aab8c6);
   </div>
 </header>
 <main>
-  <div class="notice"><strong>Nota:</strong> Sila jawab berdasarkan pengalaman anda sepanjang kursus. Untuk penilaian skala, pilih satu skor bagi setiap kenyataan. Laman pratonton ini tidak menghantar atau menyimpan respons ke pelayan.</div>
+  <div class="notice"><strong>Nota:</strong> Sila jawab berdasarkan pengalaman anda sepanjang kursus. Untuk penilaian skala, pilih satu skor bagi setiap kenyataan. Respons anda akan direkodkan secara langsung ke pangkalan data urus setia.</div>
   <div class="progress" aria-label="Kemajuan borang"><div id="progressBar"></div></div>
   <form id="feedbackForm">
     <section class="section">
@@ -106,31 +108,43 @@ footer { text-align:center; font-size:.82rem; color:light-dark(#647588,#aab8c6);
         <div class="field"><label for="future">22. Apakah topik atau latihan trauma yang anda ingin pelajari pada masa akan datang?</label><textarea id="future" name="Topik masa hadapan" placeholder="Contoh: airway management, trauma resuscitation, bleeding control..."></textarea></div>
       </div>
     </section>
-    <div class="btnrow"><button type="submit" class="primary">Semak & jana ringkasan maklum balas</button><button type="reset" class="secondary">Kosongkan borang</button></div>
+    <div class="btnrow"><button type="submit" id="submitBtn" class="primary">Hantar Maklum Balas</button><button type="reset" class="secondary">Kosongkan borang</button></div>
   </form>
-  <section class="result" id="result" aria-live="polite"><h3>Ringkasan respons anda</h3><p id="resultText"></p><div class="btnrow"><button type="button" class="primary" id="copyBtn">Salin ringkasan</button><button type="button" class="secondary" id="editBtn">Kembali mengedit</button></div><p><strong>Penting:</strong> Ringkasan ini hanya berada dalam sesi pratonton. Untuk mengumpul respons peserta sebenar, sambungkan borang ini kepada Google Forms atau sistem pangkalan data sebelum dikongsi secara rasmi.</p></section>
+  
+  <section class="result" id="result" aria-live="polite">
+    <h3 id="resultTitle">Maklum balas berjaya dihantar!</h3>
+    <p id="resultMsg">Terima kasih atas maklum balas anda. Rekod anda telah berjaya disimpan ke dalam pangkalan data kursus.</p>
+    <div class="summary-box"><pre id="resultText" style="margin:0; font-family:inherit; white-space:pre-wrap;"></pre></div>
+    <div class="btnrow"><button type="button" class="primary" id="copyBtn">Salin Salinan Respons</button><button type="button" class="secondary" id="newFormBtn">Hantar Respons Baharu</button></div>
+  </section>
+  
   <footer>Unit Kecemasan dan Trauma · Hospital Kuala Nerang</footer>
 </main>
 </div>
+
 <script>
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzeOQXiu158K6Hm3b8L6ECCL7qUwwd4tcNJdmW1EtzU3bAj2mALZah3sOuBhfCInRJt/exec';
+
 const courseQuestions = [
-"Objektif kursus TLSM-BASIC diterangkan dengan jelas.",
-"Kandungan kursus bersesuaian dengan keperluan pengurusan awal pesakit trauma.",
-"Penceramah mempunyai pengetahuan dan kemahiran yang baik dalam bidang trauma.",
-"Penyampaian penceramah jelas, teratur dan mudah difahami.",
-"Bahan pembelajaran membantu pemahaman terhadap topik yang diajar.",
-"Tempoh kursus adalah bersesuaian dengan kandungan yang disampaikan.",
-"Pengurusan dan penyelarasan kursus berjalan dengan lancar."
+  "Objektif kursus TLSM-BASIC diterangkan dengan jelas.",
+  "Kandungan kursus bersesuaian dengan keperluan pengurusan awal pesakit trauma.",
+  "Penceramah mempunyai pengetahuan dan kemahiran yang baik dalam bidang trauma.",
+  "Penyampaian penceramah jelas, teratur dan mudah difahami.",
+  "Bahan pembelajaran membantu pemahaman terhadap topik yang diajar.",
+  "Tempoh kursus adalah bersesuaian dengan kandungan yang disampaikan.",
+  "Pengurusan dan penyelarasan kursus berjalan dengan lancar."
 ];
+
 const learningQuestions = [
-"Saya lebih memahami pendekatan sistematik penilaian awal pesakit trauma.",
-"Saya lebih memahami prinsip primary survey dan secondary survey.",
-"Saya dapat mengenal pasti keadaan trauma yang mengancam nyawa dengan lebih baik.",
-"Saya lebih memahami keutamaan intervensi awal dalam pengurusan pesakit trauma.",
-"Latihan praktikal atau simulasi membantu meningkatkan kemahiran saya.",
-"Saya lebih yakin untuk terlibat dalam pengurusan awal pesakit trauma selepas mengikuti kursus ini.",
-"Saya dapat mengaplikasikan ilmu yang dipelajari dalam persekitaran klinikal sebenar."
+  "Saya lebih memahami pendekatan sistematik penilaian awal pesakit trauma.",
+  "Saya lebih memahami prinsip primary survey dan secondary survey.",
+  "Saya dapat mengenal pasti keadaan trauma yang mengancam nyawa dengan lebih baik.",
+  "Saya lebih memahami keutamaan intervensi awal dalam pengurusan pesakit trauma.",
+  "Latihan praktikal atau simulasi membantu meningkatkan kemahiran saya.",
+  "Saya lebih yakin untuk terlibat dalam pengurusan awal pesakit trauma selepas mengikuti kursus ini.",
+  "Saya dapat mengaplikasikan ilmu yang dipelajari dalam persekitaran klinikal sebenar."
 ];
+
 function renderQuestions(targetId, questions, prefix) {
   const target = document.getElementById(targetId);
   questions.forEach((q, i) => {
@@ -141,50 +155,139 @@ function renderQuestions(targetId, questions, prefix) {
     target.appendChild(field);
   });
 }
+
 renderQuestions('courseQuestions', courseQuestions, 4);
 renderQuestions('learningQuestions', learningQuestions, 11);
+
 const form = document.getElementById('feedbackForm');
 const progressBar = document.getElementById('progressBar');
+const submitBtn = document.getElementById('submitBtn');
+
 function updateProgress() {
   const required = [...form.querySelectorAll('[required]')];
-  const groups = new Set(required.filter(el=>el.type==='radio').map(el=>el.name));
-  let done = 0, total = 0;
-  required.forEach(el => {
-    if (el.type === 'radio') return;
-    total++; if (el.value) done++;
+  const uniqueNames = new Set(required.map(el => el.name));
+  let done = 0;
+  let total = uniqueNames.size;
+
+  uniqueNames.forEach(name => {
+    const field = form.elements[name];
+    if (field instanceof RadioNodeList) {
+      if (field.value) done++;
+    } else if (field && field.value) {
+      done++;
+    }
   });
-  groups.forEach(name => { total++; if(form.querySelector(`input[name="${CSS.escape(name)}"]:checked`)) done++; });
-  const radioNames = new Set([...form.querySelectorAll('input[type=radio][required]')].map(el=>el.name));
-  radioNames.forEach(name => { if(!groups.has(name)) { total++; if(form.querySelector(`input[name="${CSS.escape(name)}"]:checked`)) done++; } });
-  const questionGroups = new Set([...form.querySelectorAll('#courseQuestions input[type=radio], #learningQuestions input[type=radio]')].map(el=>el.name));
-  questionGroups.forEach(name => { total++; if(form.querySelector(`input[name="${name}"]:checked`)) done++; });
-  progressBar.style.width = (total ? Math.round(done/total*100) : 0) + '%';
+
+  progressBar.style.width = (total ? Math.round(done / total * 100) : 0) + '%';
 }
+
 form.addEventListener('change', updateProgress);
 form.addEventListener('input', updateProgress);
-form.addEventListener('reset', () => { setTimeout(()=>{document.getElementById('result').style.display='none'; updateProgress();},0); });
-form.addEventListener('submit', e => {
+form.addEventListener('reset', () => {
+  setTimeout(() => {
+    document.getElementById('result').style.display = 'none';
+    updateProgress();
+  }, 0);
+});
+
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  if(!form.reportValidity()) return;
+  if (!form.reportValidity()) return;
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Menghantar respons ke pelayan...';
+
   const data = new FormData(form);
-  let lines = ['MAKLUM BALAS TLSM-BASIC 1/2026','Hospital Kuala Nerang','',`Jawatan: ${data.get('Jawatan')}`,`Pengalaman: ${data.get('Pengalaman')}`,`Pernah kursus trauma: ${data.get('Kursus trauma terdahulu')}`,'','BAHAGIAN B — PENILAIAN KURSUS'];
-  courseQuestions.forEach((q,i)=>lines.push(`${i+5}. ${q} Skor: ${data.get('q'+(i+5))}`));
-  lines.push('','BAHAGIAN C — KEBERKESANAN PEMBELAJARAN');
-  learningQuestions.forEach((q,i)=>lines.push(`${i+12}. ${q} Skor: ${data.get('q'+(i+12))}`));
-  lines.push('',`Kepuasan keseluruhan: ${data.get('Kepuasan keseluruhan')}`,`Cadangkan kepada rakan: ${data.get('Cadangan kepada rakan sekerja')}`,`Aspek terbaik: ${data.get('Aspek terbaik')||'Tiada jawapan'}`,`Penambahbaikan: ${data.get('Penambahbaikan')||'Tiada jawapan'}`,`Topik masa hadapan: ${data.get('Topik masa hadapan')||'Tiada jawapan'}`);
-  document.getElementById('resultText').textContent = lines.join('\n');
-  document.getElementById('resultText').style.whiteSpace = 'pre-line';
-  document.getElementById('result').style.display='block';
-  document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+  const payload = {
+    timestamp: new Date().toLocaleString('ms-MY', { timeZone: 'Asia/Kuala_Lumpur' }),
+    jawatan: data.get('Jawatan') || '',
+    pengalaman: data.get('Pengalaman') || '',
+    kursusTerdahulu: data.get('Kursus trauma terdahulu') || '',
+    q5: data.get('q5') || '',
+    q6: data.get('q6') || '',
+    q7: data.get('q7') || '',
+    q8: data.get('q8') || '',
+    q9: data.get('q9') || '',
+    q10: data.get('q10') || '',
+    q11: data.get('q11') || '',
+    q12: data.get('q12') || '',
+    q13: data.get('q13') || '',
+    q14: data.get('q14') || '',
+    q15: data.get('q15') || '',
+    q16: data.get('q16') || '',
+    q17: data.get('q17') || '',
+    q18: data.get('q18') || '',
+    kepuasan: data.get('Kepuasan keseluruhan') || '',
+    cadangan: data.get('Cadangan kepada rakan sekerja') || '',
+    aspekTerbaik: data.get('Aspek terbaik') || '-',
+    penambahbaikan: data.get('Penambahbaikan') || '-',
+    topikMasaHadapan: data.get('Topik masa hadapan') || '-'
+  };
+
+  try {
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    });
+
+    let lines = [
+      'MAKLUM BALAS TLSM-BASIC 1/2026',
+      'Hospital Kuala Nerang',
+      `Masa: ${payload.timestamp}`,
+      '',
+      `Jawatan: ${payload.jawatan}`,
+      `Pengalaman: ${payload.pengalaman}`,
+      `Pernah kursus trauma: ${payload.kursusTerdahulu}`,
+      '',
+      'BAHAGIAN B — PENILAIAN KURSUS'
+    ];
+    courseQuestions.forEach((q, i) => lines.push(`${i+5}. ${q} (Skor: ${payload['q' + (i+5)]})`));
+    lines.push('', 'BAHAGIAN C — KEBERKESANAN PEMBELAJARAN');
+    learningQuestions.forEach((q, i) => lines.push(`${i+12}. ${q} (Skor: ${payload['q' + (i+12)]})`));
+    lines.push(
+      '',
+      'BAHAGIAN D — PENILAIAN KESELURUHAN',
+      `Kepuasan keseluruhan: ${payload.kepuasan}`,
+      `Cadangkan kepada rakan: ${payload.cadangan}`,
+      `Aspek terbaik: ${payload.aspekTerbaik}`,
+      `Penambahbaikan: ${payload.penambahbaikan}`,
+      `Topik masa hadapan: ${payload.topikMasaHadapan}`
+    );
+
+    document.getElementById('resultText').textContent = lines.join('\n');
+    form.style.display = 'none';
+    document.getElementById('result').style.display = 'block';
+    document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  } catch (error) {
+    alert('Maaf, berlaku masalah semasa menghantar maklum balas: ' + error.message + '. Sila pastikan sambungan internet anda aktif.');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Hantar Maklum Balas';
+  }
 });
-document.getElementById('copyBtn').addEventListener('click', async()=>{
+
+document.getElementById('copyBtn').addEventListener('click', async () => {
   const text = document.getElementById('resultText').textContent;
-  try { await navigator.clipboard.writeText(text); document.getElementById('copyBtn').textContent='Ringkasan disalin'; }
-  catch(e) { const range=document.createRange(); range.selectNodeContents(document.getElementById('resultText')); const sel=window.getSelection(); sel.removeAllRanges(); sel.addRange(range); document.getElementById('copyBtn').textContent='Pilih teks untuk disalin'; }
+  try {
+    await navigator.clipboard.writeText(text);
+    document.getElementById('copyBtn').textContent = 'Disalin!';
+    setTimeout(() => { document.getElementById('copyBtn').textContent = 'Salin Salinan Respons'; }, 2000);
+  } catch (e) {
+    alert('Gagal menyalin secara automatik.');
+  }
 });
-document.getElementById('editBtn').addEventListener('click',()=>{document.getElementById('result').style.display='none';form.scrollIntoView({behavior:'smooth',block:'start'});});
+
+document.getElementById('newFormBtn').addEventListener('click', () => {
+  form.reset();
+  form.style.display = 'block';
+  document.getElementById('result').style.display = 'none';
+  updateProgress();
+  form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
 updateProgress();
 </script>
 </body>
-</html>'''
-
+</html>
