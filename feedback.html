@@ -3,124 +3,741 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Maklum Balas TLSM-BASIC 1/2026</title>
+<title>Maklum Balas TLSM-BASIC 1/2026 | EDHKN</title>
+<!-- Google Fonts: Inter & Playfair Display -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --site-primary: #102b46;
-  --site-on-primary: #ffffff;
-  --site-secondary: #d8b66a;
-  --site-on-secondary: #17202b;
-  --site-background: #f2f5f8;
-  --site-on-background: #172638;
-  --site-font-body: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --site-font-heading: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --site-heading-scale: 1;
-  --site-spacing-scale: 1;
-  --site-radius-scale: 1;
-  --site-decoration-opacity: 1;
-  color-scheme: light dark;
+  --bg-base: #050914;
+  --bg-surface: rgba(255, 255, 255, 0.03);
+  --accent: #D4AF37;
+  --accent-glow: rgba(212, 175, 55, 0.5);
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --radius-xl: 24px;
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
-* { box-sizing: border-box; }
-body { margin: 0; font-family: var(--site-font-body); background: light-dark(#f2f5f8,#101923); color: light-dark(#172638,#edf3f9); }
-.app { min-height: 100vh; width: 100%; background-color: var(--site-background); color: var(--site-on-background); border-radius: 0; }
-.hero { background: var(--site-primary); color: var(--site-on-primary); padding: calc(34px * var(--site-spacing-scale)) 22px calc(28px * var(--site-spacing-scale)); position: relative; overflow: hidden; }
-.hero:after { content:""; position:absolute; width:240px; height:240px; border:1px solid var(--site-secondary); border-radius:50%; right:-65px; top:-105px; opacity:calc(.28 * var(--site-decoration-opacity)); box-shadow:0 0 0 24px rgba(216,182,106,.05),0 0 0 50px rgba(216,182,106,.04); }
-.hero-inner, main { max-width: 850px; margin: 0 auto; position: relative; z-index: 1; }
-.kicker { text-transform: uppercase; letter-spacing: .16em; font-size: .76rem; color: var(--site-secondary); font-weight: 800; }
-h1 { font-family:var(--site-font-heading); font-size:calc(2rem * var(--site-heading-scale)); line-height:1.13; margin:12px 0 10px; }
-.hero p { max-width: 620px; color:#e1e9f1; line-height:1.65; margin:0; }
-.hero-meta { display:flex; flex-wrap:wrap; gap:9px; margin-top:20px; }
-.pill { border:1px solid rgba(255,255,255,.28); padding:7px 11px; border-radius:99px; font-size:.82rem; }
-main { padding:24px 16px 48px; }
-.notice { background:light-dark(#fff9e9,#302a1b); border:1px solid light-dark(#e9d8a8,#66572d); padding:14px 16px; border-radius:12px; margin-bottom:18px; line-height:1.5; font-size:.91rem; }
-.section { background:light-dark(#ffffff,#18232f); border:1px solid light-dark(#dce4ec,#2c3b4b); border-radius:calc(16px * var(--site-radius-scale)); margin-bottom:16px; overflow:hidden; }
-.section-head { padding:18px 20px 12px; border-bottom:1px solid light-dark(#e8edf2,#2c3b4b); }
-.section-head h2 { font-size:1.12rem; margin:0 0 5px; }
-.section-head p { margin:0; color:light-dark(#5a6b7d,#b6c4d3); font-size:.9rem; line-height:1.5; }
-.section-body { padding:20px; }
-.field { margin-bottom:19px; }
-.field:last-child { margin-bottom:0; }
-label, .question { display:block; font-weight:700; margin-bottom:9px; line-height:1.45; }
-.optional { color:light-dark(#68798a,#aab8c6); font-weight:400; font-size:.84rem; }
-input[type=text], select, textarea { width:100%; border:1px solid light-dark(#cbd5df,#425466); border-radius:9px; padding:12px 13px; background:light-dark(#fff,#111b25); color:light-dark(#172638,#edf3f9); font:inherit; }
-textarea { resize:vertical; min-height:92px; }
-.scale { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:8px; }
-.scale label { border:1px solid light-dark(#d4dde6,#3a4b5d); border-radius:10px; padding:10px 4px; text-align:center; cursor:pointer; margin:0; font-size:.88rem; font-weight:600; }
-.scale input { display:block; margin:0 auto 7px; accent-color:var(--site-primary); }
-.scale label:has(input:checked) { border-color:var(--site-secondary); background:light-dark(#fff7df,#3b3321); box-shadow:inset 0 0 0 1px var(--site-secondary); }
-.scale-ends { display:flex; justify-content:space-between; font-size:.75rem; color:light-dark(#68798a,#aab8c6); margin-top:7px; }
-.choice-list { display:grid; gap:9px; }
-.choice-list label { display:flex; gap:10px; align-items:flex-start; font-weight:500; margin:0; }
-.choice-list input { margin-top:4px; accent-color:var(--site-primary); }
-.btnrow { display:flex; gap:10px; flex-wrap:wrap; }
-button { font:inherit; cursor:pointer; border:0; border-radius:10px; padding:13px 18px; font-weight:750; transition: opacity .2s; }
-button:disabled { opacity: 0.6; cursor: not-allowed; }
-.primary { background:var(--site-primary); color:var(--site-on-primary); flex:1; min-width:200px; }
-.secondary { background:light-dark(#e4eaf0,#263747); color:light-dark(#172638,#edf3f9); }
-.progress { height:6px; border-radius:99px; background:light-dark(#dce4ec,#2c3b4b); overflow:hidden; margin:0 0 18px; }
-.progress > div { height:100%; width:0; background:var(--site-secondary); transition:width .2s; }
-.result { display:none; margin-top:18px; padding:18px; border-radius:12px; background:light-dark(#edf7f1,#173126); border:1px solid light-dark(#b9dec9,#2d6249); }
-.result h3 { margin:0 0 8px; color: light-dark(#1e6b45,#4ade80); }
-.result p { line-height:1.55; }
-.summary-box { background: light-dark(#ffffff,#111b25); padding: 14px; border-radius: 8px; border: 1px solid light-dark(#cbd5df,#425466); margin: 14px 0; font-size: 0.9rem; }
-footer { text-align:center; font-size:.82rem; color:light-dark(#647588,#aab8c6); padding:12px 8px 28px; }
-@media(min-width:650px){ .hero{padding:42px 28px 34px} h1{font-size:calc(2.6rem * var(--site-heading-scale))} main{padding:28px 20px 52px} .section-body{padding:22px 24px} }
-@media(max-width:420px){ .scale{gap:4px}.scale label{font-size:.78rem;padding:9px 2px}.hero{padding-left:18px;padding-right:18px} }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-base);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* --- ANIMATED BACKGROUND BLOBS --- */
+.bg-blobs {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.blob {
+  position: absolute;
+  filter: blur(95px);
+  opacity: 0.55;
+  border-radius: 50%;
+  animation: float 10s infinite alternate ease-in-out;
+}
+.blob-1 {
+  top: -10%; left: -10%;
+  width: 500px; height: 500px;
+  background: rgba(212, 175, 55, 0.12);
+}
+.blob-2 {
+  bottom: -20%; right: -10%;
+  width: 600px; height: 600px;
+  background: rgba(14, 165, 233, 0.08);
+  animation-delay: -5s;
+}
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(45px, 45px) scale(1.08); }
+}
+
+/* --- NAVIGASI TERAPUNG --- */
+nav {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1000px;
+  background: rgba(10, 15, 30, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-color);
+  border-radius: 50px;
+  padding: 10px 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+  animation: slideDown 0.8s ease-out forwards;
+}
+
+.logo-group {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-decoration: none;
+}
+
+.dept-logo {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 50%;
+  background: var(--text-main);
+  padding: 2px;
+}
+
+.logo-text {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-main);
+  line-height: 1.1;
+}
+
+.logo-text span {
+  display: block;
+  font-size: 0.7rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* --- MAIN CONTAINER --- */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 140px 5% 80px;
+  position: relative;
+  z-index: 10;
+}
+
+.header-content {
+  text-align: center;
+  margin-bottom: 30px;
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.kicker {
+  display: inline-block;
+  padding: 6px 18px;
+  background: linear-gradient(90deg, rgba(212,175,55,0.1), rgba(212,175,55,0.02));
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 100px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  margin-bottom: 15px;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  line-height: 1.15;
+  margin-bottom: 15px;
+  font-weight: 700;
+  background: linear-gradient(to bottom right, #FFFFFF 30%, #94A3B8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header-content p {
+  color: var(--text-muted);
+  max-width: 620px;
+  margin: 0 auto;
+  font-size: 1.05rem;
+}
+
+/* --- PROGRESS BAR --- */
+.progress-container {
+  width: 100%;
+  max-width: 820px;
+  margin-bottom: 24px;
+}
+.progress {
+  height: 6px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.4);
+}
+.progress > div {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--accent) 0%, #F59E0B 100%);
+  box-shadow: 0 0 12px var(--accent-glow);
+  transition: width 0.3s ease;
+}
+
+/* --- FORM CONTAINER --- */
+.form-container {
+  width: 100%;
+  max-width: 820px;
+}
+
+.notice {
+  background: rgba(212, 175, 55, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  padding: 15px 20px;
+  border-radius: var(--radius-md);
+  margin-bottom: 25px;
+  font-size: 0.9rem;
+  color: var(--accent);
+  line-height: 1.5;
+}
+
+.section {
+  background: var(--bg-surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  margin-bottom: 24px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+  transition: var(--transition);
+}
+
+.section:hover {
+  border-color: rgba(212, 175, 55, 0.25);
+}
+
+.section-head {
+  padding: 24px 28px 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+.section-head h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  color: var(--text-main);
+  margin-bottom: 5px;
+}
+.section-head p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+.section-body {
+  padding: 28px;
+}
+
+.field {
+  margin-bottom: 24px;
+}
+.field:last-child {
+  margin-bottom: 0;
+}
+
+label, .question {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: var(--text-main);
+  font-size: 0.96rem;
+  line-height: 1.5;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.98rem;
+  transition: var(--transition);
+}
+select option {
+  background: #0f172a;
+  color: #fff;
+}
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+/* CUSTOM RATING SCALE (1 - 5) */
+.scale {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+.scale label {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px 6px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--text-main);
+}
+.scale label:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(212, 175, 55, 0.4);
+}
+.scale label:has(input:checked) {
+  border-color: var(--accent);
+  background: rgba(212, 175, 55, 0.12);
+  color: var(--accent);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+}
+.scale input {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  margin: 0;
+  position: relative;
+  transition: var(--transition);
+}
+.scale label:has(input:checked) input {
+  border-color: var(--accent);
+}
+.scale label:has(input:checked) input::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px; height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+.scale-ends {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  padding: 0 4px;
+}
+
+/* CUSTOM CHOICE LIST (RADIO) */
+.choice-list {
+  display: grid;
+  gap: 12px;
+}
+.choice-list label {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-weight: 400;
+  margin: 0;
+  cursor: pointer;
+  padding: 14px 16px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+}
+.choice-list label:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.choice-list label:has(input:checked) {
+  border-color: var(--accent);
+  background: rgba(212, 175, 55, 0.08);
+  color: var(--accent);
+}
+.choice-list input[type="radio"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  margin: 0;
+  position: relative;
+  transition: var(--transition);
+}
+.choice-list input[type="radio"]:checked {
+  border-color: var(--accent);
+}
+.choice-list input[type="radio"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px; height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+/* BUTTONS */
+.btnrow {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+button {
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  border: 0;
+  border-radius: var(--radius-md);
+  padding: 16px 24px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+button:active { transform: scale(0.98); }
+button:disabled { opacity: 0.7; cursor: not-allowed; }
+
+.primary {
+  background: linear-gradient(135deg, var(--accent) 0%, #B8860B 100%);
+  color: var(--bg-base);
+  flex: 2;
+  min-width: 220px;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+.primary:hover:not(:disabled) {
+  box-shadow: 0 6px 22px rgba(212, 175, 55, 0.5);
+  transform: translateY(-2px);
+}
+.secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  flex: 1;
+  min-width: 160px;
+}
+.secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* RESULT SCREEN */
+.result {
+  display: none;
+  background: var(--bg-surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 40px 30px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  text-align: center;
+}
+.result-icon {
+  width: 75px;
+  height: 75px;
+  background: rgba(16, 185, 129, 0.1);
+  color: #10B981;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.25);
+}
+.result-icon svg { width: 38px; height: 38px; }
+.result h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.85rem;
+  color: var(--text-main);
+  margin-bottom: 10px;
+}
+.result p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.summary-box {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  margin: 25px 0;
+  text-align: left;
+  max-height: 320px;
+  overflow-y: auto;
+}
+.summary-box pre {
+  font-family: 'Inter', monospace;
+  font-size: 0.88rem;
+  color: var(--text-main);
+  white-space: pre-wrap;
+  margin: 0;
+}
+
+/* --- FOOTER EKSKLUSIF --- */
+footer {
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  color: var(--text-muted);
+  padding: 25px 5%;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.85rem;
+  z-index: 10;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .footer-container { flex-direction: row; justify-content: space-between; }
+}
+
+.footer-logos { display: flex; align-items: center; gap: 15px; }
+.footer-logos img { height: 35px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)); transition: transform 0.3s; }
+.footer-logos img:hover { transform: scale(1.05); }
+.logo-divider { width: 1px; height: 25px; background-color: rgba(255, 255, 255, 0.15); }
+
+.footer-status {
+  display: flex; align-items: center; gap: 10px;
+  color: var(--accent); letter-spacing: 1px; font-weight: 500;
+  background: rgba(212, 175, 55, 0.05); padding: 6px 16px;
+  border-radius: 50px; border: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.pulse-dot {
+  width: 8px; height: 8px; background-color: #10B981; border-radius: 50%;
+  box-shadow: 0 0 0 rgba(16, 185, 129, 0.4); animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.footer-copyright { margin: 0; letter-spacing: 0.5px; text-align: center; }
+.footer-copyright span { color: var(--text-main); font-weight: 500;}
+
+/* --- KEYFRAMES --- */
+@keyframes slideDown { from { top: -100px; opacity: 0; } to { top: 20px; opacity: 1; } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 650px) {
+  nav { width: 95%; padding: 12px 18px; border-radius: 30px; }
+  .logo-text { font-size: 0.98rem; }
+  .section-body { padding: 20px; }
+  .section-head { padding: 18px 20px; }
+  .scale label { font-size: 0.8rem; padding: 10px 2px; }
+}
 </style>
 </head>
 <body>
-<div class="app">
-<header class="hero">
-  <div class="hero-inner">
-    <div class="kicker">Hospital Kuala Nerang</div>
+
+<!-- Animasi Latar Belakang Canggih -->
+<div class="bg-blobs">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+</div>
+
+<!-- Navigasi Utama Terapung -->
+<nav>
+  <a href="index.html" class="logo-group">
+    <img src="https://lh3.googleusercontent.com/d/1O2Nj1Dr4U6wo7ISjdkDRukPYwZUkOOuJ" alt="Logo Jabatan" class="dept-logo">
+    <div class="logo-text">
+      Hospital Kuala Nerang
+      <span>Jabatan Kecemasan & Trauma</span>
+    </div>
+  </a>
+</nav>
+
+<!-- Konten Utama -->
+<main>
+  <div class="header-content">
+    <span class="kicker">Unit Kecemasan & Trauma</span>
     <h1>Borang Maklum Balas<br>TLSM-BASIC 1/2026</h1>
     <p>Maklum balas anda membantu urus setia menilai keberkesanan kursus dan menambah baik latihan pengurusan awal pesakit trauma pada masa akan datang.</p>
-    <div class="hero-meta"><span class="pill">Unit Kecemasan dan Trauma</span><span class="pill">Anggaran 3–5 minit</span></div>
   </div>
-</header>
-<main>
-  <div class="notice"><strong>Nota:</strong> Sila jawab berdasarkan pengalaman anda sepanjang kursus. Untuk penilaian skala, pilih satu skor bagi setiap kenyataan. Respons anda akan direkodkan secara langsung ke pangkalan data urus setia.</div>
-  <div class="progress" aria-label="Kemajuan borang"><div id="progressBar"></div></div>
-  <form id="feedbackForm">
-    <section class="section">
-      <div class="section-head"><h2>Bahagian A — Maklumat peserta</h2><p>Maklumat ini membantu urus setia memahami profil peserta.</p></div>
-      <div class="section-body">
-        <div class="field"><label for="role">1. Jawatan</label><select id="role" name="Jawatan" required><option value="">Pilih jawatan</option><option>Pegawai Perubatan (MO)</option><option>Penolong Pegawai Perubatan (PPP)</option><option>Jururawat</option><option>Penolong Pegawai Perawatan Kesihatan (PPK)</option><option>Lain-lain</option></select></div>
-        <div class="field"><label for="experience">2. Pengalaman bekerja dalam bidang kecemasan dan trauma</label><select id="experience" name="Pengalaman" required><option value="">Pilih tempoh pengalaman</option><option>Kurang 1 tahun</option><option>1–5 tahun</option><option>6–10 tahun</option><option>Lebih 10 tahun</option></select></div>
-        <div class="field"><span class="question">3. Pernahkah anda menghadiri kursus pengurusan trauma sebelum ini?</span><div class="choice-list"><label><input type="radio" name="Kursus trauma terdahulu" value="Ya" required> Ya</label><label><input type="radio" name="Kursus trauma terdahulu" value="Tidak"> Tidak</label></div></div>
+
+  <div class="progress-container">
+    <div class="progress" aria-label="Kemajuan borang"><div id="progressBar"></div></div>
+  </div>
+
+  <div class="form-container">
+    <form id="feedbackForm">
+      <div class="notice">
+        <strong>Nota:</strong> Sila jawab berdasarkan pengalaman anda sepanjang kursus. Untuk soalan skala, pilih satu skor bagi setiap kenyataan. Respons akan direkodkan terus ke sistem pangkalan data kursus.
+      </div>
+
+      <!-- Bahagian A -->
+      <section class="section">
+        <div class="section-head">
+          <h2>Bahagian A — Maklumat Peserta</h2>
+          <p>Maklumat ini membantu urus setia memahami profil peserta kursus.</p>
+        </div>
+        <div class="section-body">
+          <div class="field">
+            <label for="role">1. Jawatan</label>
+            <select id="role" name="Jawatan" required>
+              <option value="" disabled selected>Pilih jawatan anda</option>
+              <option>Pegawai Perubatan (MO)</option>
+              <option>Penolong Pegawai Perubatan (PPP)</option>
+              <option>Jururawat</option>
+              <option>Penolong Pegawai Perawatan Kesihatan (PPK)</option>
+              <option>Lain-lain</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="experience">2. Pengalaman bekerja dalam bidang kecemasan dan trauma</label>
+            <select id="experience" name="Pengalaman" required>
+              <option value="" disabled selected>Pilih tempoh pengalaman</option>
+              <option>Kurang 1 tahun</option>
+              <option>1–5 tahun</option>
+              <option>6–10 tahun</option>
+              <option>Lebih 10 tahun</option>
+            </select>
+          </div>
+          <div class="field">
+            <span class="question">3. Pernahkah anda menghadiri kursus pengurusan trauma sebelum ini?</span>
+            <div class="choice-list">
+              <label><input type="radio" name="Kursus trauma terdahulu" value="Ya" required> Ya</label>
+              <label><input type="radio" name="Kursus trauma terdahulu" value="Tidak"> Tidak</label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bahagian B -->
+      <section class="section">
+        <div class="section-head">
+          <h2>Bahagian B — Penilaian Kursus</h2>
+          <p>Pilih satu skor bagi setiap kenyataan (1: Sangat tidak setuju — 5: Sangat setuju).</p>
+        </div>
+        <div class="section-body" id="courseQuestions"></div>
+      </section>
+
+      <!-- Bahagian C -->
+      <section class="section">
+        <div class="section-head">
+          <h2>Bahagian C — Keberkesanan Pembelajaran</h2>
+          <p>Nilai pemahaman, kemahiran dan keyakinan anda selepas mengikuti kursus.</p>
+        </div>
+        <div class="section-body" id="learningQuestions"></div>
+      </section>
+
+      <!-- Bahagian D -->
+      <section class="section">
+        <div class="section-head">
+          <h2>Bahagian D — Penilaian Keseluruhan</h2>
+          <p>Kongsikan pandangan dan cadangan penambahbaikan anda.</p>
+        </div>
+        <div class="section-body">
+          <div class="field">
+            <span class="question">18. Secara keseluruhan, sejauh manakah anda berpuas hati dengan kursus ini?</span>
+            <div class="choice-list">
+              <label><input type="radio" name="Kepuasan keseluruhan" value="Sangat tidak berpuas hati" required> Sangat tidak berpuas hati</label>
+              <label><input type="radio" name="Kepuasan keseluruhan" value="Tidak berpuas hati"> Tidak berpuas hati</label>
+              <label><input type="radio" name="Kepuasan keseluruhan" value="Sederhana"> Sederhana</label>
+              <label><input type="radio" name="Kepuasan keseluruhan" value="Puas hati"> Puas hati</label>
+              <label><input type="radio" name="Kepuasan keseluruhan" value="Sangat berpuas hati"> Sangat berpuas hati</label>
+            </div>
+          </div>
+          <div class="field">
+            <span class="question">19. Adakah anda akan mengesyorkan kursus ini kepada rakan sekerja?</span>
+            <div class="choice-list">
+              <label><input type="radio" name="Cadangan kepada rakan sekerja" value="Ya" required> Ya</label>
+              <label><input type="radio" name="Cadangan kepada rakan sekerja" value="Tidak pasti"> Tidak pasti</label>
+              <label><input type="radio" name="Cadangan kepada rakan sekerja" value="Tidak"> Tidak</label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="best">20. Apakah aspek terbaik dalam kursus ini?</label>
+            <textarea id="best" name="Aspek terbaik" placeholder="Contoh: latihan praktikal, simulasi kes trauma, penyampaian penceramah..."></textarea>
+          </div>
+          <div class="field">
+            <label for="improve">21. Apakah aspek yang perlu ditambah baik?</label>
+            <textarea id="improve" name="Penambahbaikan" placeholder="Nyatakan cadangan penambahbaikan..."></textarea>
+          </div>
+          <div class="field">
+            <label for="future">22. Apakah topik atau latihan trauma yang anda ingin pelajari pada masa akan datang?</label>
+            <textarea id="future" name="Topik masa hadapan" placeholder="Contoh: airway management, trauma resuscitation, bleeding control..."></textarea>
+          </div>
+        </div>
+      </section>
+
+      <div class="btnrow">
+        <button type="submit" id="submitBtn" class="primary">Hantar Maklum Balas</button>
+        <button type="reset" class="secondary">Kosongkan Borang</button>
+      </div>
+    </form>
+
+    <!-- RESULT SUCCESS -->
+    <section class="result" id="result" aria-live="polite">
+      <div class="result-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <h3 id="resultTitle">Maklum Balas Berjaya Dihantar!</h3>
+      <p id="resultMsg">Terima kasih atas kerjasama anda. Rekod maklum balas telah selamat disimpan ke pangkalan data urus setia.</p>
+      
+      <div class="summary-box">
+        <pre id="resultText"></pre>
+      </div>
+      
+      <div class="btnrow" style="justify-content: center;">
+        <button type="button" class="primary" id="copyBtn" style="max-width: 240px;">Salin Ringkasan</button>
+        <button type="button" class="secondary" id="newFormBtn" style="max-width: 240px;">Hantar Respons Baharu</button>
       </div>
     </section>
-    <section class="section">
-      <div class="section-head"><h2>Bahagian B — Penilaian kursus</h2><p>Pilih satu skor bagi setiap kenyataan.</p></div>
-      <div class="section-body" id="courseQuestions"></div>
-    </section>
-    <section class="section">
-      <div class="section-head"><h2>Bahagian C — Keberkesanan pembelajaran</h2><p>Nilai pemahaman, kemahiran dan keyakinan anda selepas mengikuti kursus.</p></div>
-      <div class="section-body" id="learningQuestions"></div>
-    </section>
-    <section class="section">
-      <div class="section-head"><h2>Bahagian D — Penilaian keseluruhan</h2><p>Kongsikan pandangan dan cadangan anda.</p></div>
-      <div class="section-body">
-        <div class="field"><span class="question">18. Secara keseluruhan, sejauh manakah anda berpuas hati dengan kursus ini?</span><div class="choice-list"><label><input type="radio" name="Kepuasan keseluruhan" value="Sangat tidak berpuas hati" required> Sangat tidak berpuas hati</label><label><input type="radio" name="Kepuasan keseluruhan" value="Tidak berpuas hati"> Tidak berpuas hati</label><label><input type="radio" name="Kepuasan keseluruhan" value="Sederhana"> Sederhana</label><label><input type="radio" name="Kepuasan keseluruhan" value="Puas hati"> Puas hati</label><label><input type="radio" name="Kepuasan keseluruhan" value="Sangat berpuas hati"> Sangat berpuas hati</label></div></div>
-        <div class="field"><span class="question">19. Adakah anda akan mengesyorkan kursus ini kepada rakan sekerja?</span><div class="choice-list"><label><input type="radio" name="Cadangan kepada rakan sekerja" value="Ya" required> Ya</label><label><input type="radio" name="Cadangan kepada rakan sekerja" value="Tidak pasti"> Tidak pasti</label><label><input type="radio" name="Cadangan kepada rakan sekerja" value="Tidak"> Tidak</label></div></div>
-        <div class="field"><label for="best">20. Apakah aspek terbaik dalam kursus ini?</label><textarea id="best" name="Aspek terbaik" placeholder="Contoh: latihan praktikal, simulasi kes trauma, penyampaian penceramah..."></textarea></div>
-        <div class="field"><label for="improve">21. Apakah aspek yang perlu ditambah baik?</label><textarea id="improve" name="Penambahbaikan" placeholder="Nyatakan cadangan penambahbaikan..."></textarea></div>
-        <div class="field"><label for="future">22. Apakah topik atau latihan trauma yang anda ingin pelajari pada masa akan datang?</label><textarea id="future" name="Topik masa hadapan" placeholder="Contoh: airway management, trauma resuscitation, bleeding control..."></textarea></div>
-      </div>
-    </section>
-    <div class="btnrow"><button type="submit" id="submitBtn" class="primary">Hantar Maklum Balas</button><button type="reset" class="secondary">Kosongkan borang</button></div>
-  </form>
-  
-  <section class="result" id="result" aria-live="polite">
-    <h3 id="resultTitle">Maklum balas berjaya dihantar!</h3>
-    <p id="resultMsg">Terima kasih atas maklum balas anda. Rekod anda telah berjaya disimpan ke dalam pangkalan data kursus.</p>
-    <div class="summary-box"><pre id="resultText" style="margin:0; font-family:inherit; white-space:pre-wrap;"></pre></div>
-    <div class="btnrow"><button type="button" class="primary" id="copyBtn">Salin Salinan Respons</button><button type="button" class="secondary" id="newFormBtn">Hantar Respons Baharu</button></div>
-  </section>
-  
-  <footer>Unit Kecemasan dan Trauma · Hospital Kuala Nerang</footer>
+  </div>
 </main>
-</div>
+
+<!-- Kaki Halaman (Footer Moden) -->
+<footer>
+  <div class="footer-container">
+    <div class="footer-logos">
+      <img src="https://lh3.googleusercontent.com/d/1O2Nj1Dr4U6wo7ISjdkDRukPYwZUkOOuJ" alt="HKN Logo">
+      <div class="logo-divider"></div>
+      <img src="https://lh3.googleusercontent.com/d/1LdMRx-PF49CWOcrjthClGLJg-yQoJ2mt" alt="MOH Logo">
+    </div>
+
+    <div class="footer-status">
+      <span class="pulse-dot"></span>
+      <span>EDHKN PORTAL Ver 2.0</span>
+    </div>
+
+    <p class="footer-copyright">© 2026 <span>Yassin Razak</span> | All Rights Reserved</p>
+  </div>
+</footer>
 
 <script>
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzeOQXiu158K6Hm3b8L6ECCL7qUwwd4tcNJdmW1EtzU3bAj2mALZah3sOuBhfCInRJt/exec';
@@ -151,7 +768,15 @@ function renderQuestions(targetId, questions, prefix) {
     const number = prefix + i + 1;
     const field = document.createElement('div');
     field.className = 'field';
-    field.innerHTML = `<span class="question">${number}. ${q}</span><div class="scale" role="radiogroup" aria-label="${q.replace(/"/g,'&quot;')}">${[1,2,3,4,5].map(n=>`<label><input type="radio" name="q${number}" value="${n}" required>${n}</label>`).join('')}</div><div class="scale-ends"><span>1 — Sangat tidak setuju</span><span>5 — Sangat setuju</span></div>`;
+    field.innerHTML = `
+      <span class="question">${number}. ${q}</span>
+      <div class="scale" role="radiogroup" aria-label="${q.replace(/"/g,'&quot;')}">
+        ${[1,2,3,4,5].map(n => `<label><input type="radio" name="q${number}" value="${n}" required><span>${n}</span></label>`).join('')}
+      </div>
+      <div class="scale-ends">
+        <span>1 — Sangat tidak setuju</span>
+        <span>5 — Sangat setuju</span>
+      </div>`;
     target.appendChild(field);
   });
 }
@@ -199,6 +824,7 @@ form.addEventListener('submit', async (e) => {
 
   const data = new FormData(form);
   const payload = {
+    formType: 'feedback',
     timestamp: new Date().toLocaleString('ms-MY', { timeZone: 'Asia/Kuala_Lumpur' }),
     jawatan: data.get('Jawatan') || '',
     pengalaman: data.get('Pengalaman') || '',
@@ -257,8 +883,9 @@ form.addEventListener('submit', async (e) => {
 
     document.getElementById('resultText').textContent = lines.join('\n');
     form.style.display = 'none';
+    document.querySelector('.progress-container').style.display = 'none';
     document.getElementById('result').style.display = 'block';
-    document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 
   } catch (error) {
     alert('Maaf, berlaku masalah semasa menghantar maklum balas: ' + error.message + '. Sila pastikan sambungan internet anda aktif.');
@@ -273,18 +900,19 @@ document.getElementById('copyBtn').addEventListener('click', async () => {
   try {
     await navigator.clipboard.writeText(text);
     document.getElementById('copyBtn').textContent = 'Disalin!';
-    setTimeout(() => { document.getElementById('copyBtn').textContent = 'Salin Salinan Respons'; }, 2000);
+    setTimeout(() => { document.getElementById('copyBtn').textContent = 'Salin Ringkasan'; }, 2000);
   } catch (e) {
-    alert('Gagal menyalin secara automatik.');
+    alert('Gagal menyalin teks secara automatik.');
   }
 });
 
 document.getElementById('newFormBtn').addEventListener('click', () => {
   form.reset();
   form.style.display = 'block';
+  document.querySelector('.progress-container').style.display = 'block';
   document.getElementById('result').style.display = 'none';
   updateProgress();
-  form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
 updateProgress();
