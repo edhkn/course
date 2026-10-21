@@ -31,7 +31,7 @@
             -webkit-font-smoothing: antialiased;
             display: flex;
             flex-direction: column;
-            min-height: 100vh; /* Memastikan footer sentiasa di bawah */
+            min-height: 100vh;
         }
 
         /* --- Navigasi --- */
@@ -81,7 +81,7 @@
         /* --- Hero Section --- */
         .hero {
             position: relative;
-            flex: 1; /* Supaya hero mengisi ruang dan menolak footer ke bawah */
+            flex: 1; 
             display: flex;
             align-items: center;
             padding: 120px 5% 80px;
@@ -207,70 +207,83 @@
             flex-grow: 1;
         }
 
-        /* --- Footer Moden --- */
-        .site-footer {
-            background-color: var(--primary); /* Menggunakan warna tema utama */
+        /* --- FOOTER BAHARU (Elegan & Tersusun) --- */
+        footer {
+            background-color: var(--primary); /* Latar gelap selari dengan tema */
             color: rgba(255, 255, 255, 0.6);
-            padding: 30px 5% 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px 5%;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
             font-size: 0.85rem;
         }
 
-        .footer-content {
+        .footer-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            text-align: center;
-            gap: 10px;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .footer-divider {
-            width: 40px;
-            height: 2px;
-            background-color: var(--accent); /* Warna emas */
-            margin: 10px auto;
-            border-radius: 2px;
+        /* Rekabentuk sebaris (inline) untuk desktop */
+        @media (min-width: 768px) {
+            .footer-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
         }
 
-        .footer-credits {
-            font-weight: 400;
-            letter-spacing: 0.5px;
-        }
-        
-        .footer-credits span {
-            color: var(--white);
-            font-weight: 600;
-        }
-
-        .footer-links {
-            margin-top: 10px;
+        /* Logo Footer CSS */
+        .footer-logos {
             display: flex;
+            align-items: center;
             gap: 15px;
         }
 
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.5);
-            text-decoration: none;
-            transition: color 0.2s ease;
+        .footer-logos img {
+            height: 40px; /* Saiz dikecilkan & seragam */
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
         }
 
-        .footer-links a:hover {
+        .logo-divider {
+            width: 1px;
+            height: 25px;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Status Online dengan titik hijau */
+        .footer-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             color: var(--accent);
+            letter-spacing: 1px;
+            font-weight: 500;
         }
 
-        @media (min-width: 768px) {
-            .footer-content {
-                flex-direction: row;
-                justify-content: space-between;
-                text-align: left;
-            }
-            .footer-divider {
-                display: none; /* Sembunyikan divider pada skrin besar */
-            }
-            .footer-links {
-                margin-top: 0;
-            }
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #22c55e;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 0 rgba(34, 197, 94, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+
+        .footer-copyright {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.5px;
+            text-align: center;
         }
 
         @media (max-width: 768px) {
@@ -285,9 +298,7 @@
     <!-- Navigasi Utama -->
     <nav>
         <div class="logo-group">
-            <!-- Gantikan MASUKKAN_ID_GAMBAR_DI_SINI dengan ID Google Drive anda -->
             <img src="https://lh3.googleusercontent.com/d/1O2Nj1Dr4U6wo7ISjdkDRukPYwZUkOOuJ" alt="Logo Jabatan" class="dept-logo">
-            
             <div class="logo-text">
                 Hospital Kuala Nerang
                 <span>Jabatan Kecemasan & Trauma</span>
@@ -334,7 +345,7 @@
     </header>
 
     <!-- Kaki Halaman (Footer Moden) -->
- <footer>
+    <footer>
         <div class="footer-container">
             <!-- 2 FOOTER LOGOS -->
             <div class="footer-logos">
@@ -343,11 +354,13 @@
                 <img id="img-footer-logo-2" src="https://lh3.googleusercontent.com/d/1LdMRx-PF49CWOcrjthClGLJg-yQoJ2mt" alt="Footer Logo 2">
             </div>
 
+            <!-- STATUS ONLINE (Tengah) -->
             <div class="footer-status">
                 <span class="pulse-dot"></span>
                 <span>EDHKN : ONLINE PORTAL SYSTEM Ver 1.2</span>
             </div>
 
+            <!-- COPYRIGHT (Kanan) -->
             <p class="footer-copyright">© 2026 Yassin Razak | All Rights Reserved</p>
         </div>
     </footer>
