@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Maklum Balas TLSM-BASIC 1/2026 | EDHKN</title>
+<title>Borang Maklum Balas Kursus | EDHKN</title>
 <!-- Google Fonts: Inter & Playfair Display -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -583,8 +583,8 @@ footer {
 <main>
   <div class="header-content">
     <span class="kicker">Unit Kecemasan & Trauma</span>
-    <h1>Borang Maklum Balas<br>TLSM-BASIC 1/2026</h1>
-    <p>Maklum balas anda membantu urus setia menilai keberkesanan kursus dan menambah baik latihan pengurusan awal pesakit trauma pada masa akan datang.</p>
+    <h1>Borang Penilaian<br>& Maklum Balas Kursus</h1>
+    <p>Maklum balas anda membantu urus setia menilai keberkesanan penganjuran kursus dan menambah baik mutu latihan klinikal pada masa akan datang.</p>
   </div>
 
   <div class="progress-container">
@@ -600,23 +600,28 @@ footer {
       <!-- Bahagian A -->
       <section class="section">
         <div class="section-head">
-          <h2>Bahagian A — Maklumat Peserta</h2>
-          <p>Maklumat ini membantu urus setia memahami profil peserta kursus.</p>
+          <h2>Bahagian A — Maklumat Kursus & Peserta</h2>
+          <p>Sila masukkan nama kursus yang anda hadiri berserta butiran profil.</p>
         </div>
         <div class="section-body">
           <div class="field">
-            <label for="role">1. Jawatan</label>
+            <label for="nama_kursus">1. Nama Kursus</label>
+            <input type="text" id="nama_kursus" name="Nama Kursus" required placeholder="Contoh: TLSM-BASIC, BLS, atau ATLS" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="role">2. Jawatan</label>
             <select id="role" name="Jawatan" required>
               <option value="" disabled selected>Pilih jawatan anda</option>
+              <option>Pakar Perubatan</option>
               <option>Pegawai Perubatan (MO)</option>
               <option>Penolong Pegawai Perubatan (PPP)</option>
-              <option>Jururawat</option>
+              <option>Jururawat (SN/JM)</option>
               <option>Penolong Pegawai Perawatan Kesihatan (PPK)</option>
               <option>Lain-lain</option>
             </select>
           </div>
           <div class="field">
-            <label for="experience">2. Pengalaman bekerja dalam bidang kecemasan dan trauma</label>
+            <label for="experience">3. Pengalaman bekerja dalam bidang kecemasan dan trauma</label>
             <select id="experience" name="Pengalaman" required>
               <option value="" disabled selected>Pilih tempoh pengalaman</option>
               <option>Kurang 1 tahun</option>
@@ -626,7 +631,7 @@ footer {
             </select>
           </div>
           <div class="field">
-            <span class="question">3. Pernahkah anda menghadiri kursus pengurusan trauma sebelum ini?</span>
+            <span class="question">4. Pernahkah anda menghadiri kursus pengurusan trauma sebelum ini?</span>
             <div class="choice-list">
               <label><input type="radio" name="Kursus trauma terdahulu" value="Ya" required> Ya</label>
               <label><input type="radio" name="Kursus trauma terdahulu" value="Tidak"> Tidak</label>
@@ -661,7 +666,7 @@ footer {
         </div>
         <div class="section-body">
           <div class="field">
-            <span class="question">18. Secara keseluruhan, sejauh manakah anda berpuas hati dengan kursus ini?</span>
+            <span class="question">19. Secara keseluruhan, sejauh manakah anda berpuas hati dengan kursus ini?</span>
             <div class="choice-list">
               <label><input type="radio" name="Kepuasan keseluruhan" value="Sangat tidak berpuas hati" required> Sangat tidak berpuas hati</label>
               <label><input type="radio" name="Kepuasan keseluruhan" value="Tidak berpuas hati"> Tidak berpuas hati</label>
@@ -671,7 +676,7 @@ footer {
             </div>
           </div>
           <div class="field">
-            <span class="question">19. Adakah anda akan mengesyorkan kursus ini kepada rakan sekerja?</span>
+            <span class="question">20. Adakah anda akan mengesyorkan kursus ini kepada rakan sekerja?</span>
             <div class="choice-list">
               <label><input type="radio" name="Cadangan kepada rakan sekerja" value="Ya" required> Ya</label>
               <label><input type="radio" name="Cadangan kepada rakan sekerja" value="Tidak pasti"> Tidak pasti</label>
@@ -679,16 +684,16 @@ footer {
             </div>
           </div>
           <div class="field">
-            <label for="best">20. Apakah aspek terbaik dalam kursus ini?</label>
-            <textarea id="best" name="Aspek terbaik" placeholder="Contoh: latihan praktikal, simulasi kes trauma, penyampaian penceramah..."></textarea>
+            <label for="best">21. Apakah aspek terbaik dalam kursus ini?</label>
+            <textarea id="best" name="Aspek terbaik" placeholder="Contoh: latihan praktikal, simulasi, penyampaian penceramah..."></textarea>
           </div>
           <div class="field">
-            <label for="improve">21. Apakah aspek yang perlu ditambah baik?</label>
+            <label for="improve">22. Apakah aspek yang perlu ditambah baik?</label>
             <textarea id="improve" name="Penambahbaikan" placeholder="Nyatakan cadangan penambahbaikan..."></textarea>
           </div>
           <div class="field">
-            <label for="future">22. Apakah topik atau latihan trauma yang anda ingin pelajari pada masa akan datang?</label>
-            <textarea id="future" name="Topik masa hadapan" placeholder="Contoh: airway management, trauma resuscitation, bleeding control..."></textarea>
+            <label for="future">23. Apakah topik atau latihan tambahan yang anda ingin pelajari pada masa akan datang?</label>
+            <textarea id="future" name="Topik masa hadapan" placeholder="Contoh: airway management, bleeding control..."></textarea>
           </div>
         </div>
       </section>
@@ -740,12 +745,13 @@ footer {
 </footer>
 
 <script>
+// GANTIKAN URL DI BAWAH JIKA PERLU
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzeOQXiu158K6Hm3b8L6ECCL7qUwwd4tcNJdmW1EtzU3bAj2mALZah3sOuBhfCInRJt/exec';
 
 const courseQuestions = [
-  "Objektif kursus TLSM-BASIC diterangkan dengan jelas.",
-  "Kandungan kursus bersesuaian dengan keperluan pengurusan awal pesakit trauma.",
-  "Penceramah mempunyai pengetahuan dan kemahiran yang baik dalam bidang trauma.",
+  "Objektif kursus diterangkan dengan jelas.",
+  "Kandungan kursus bersesuaian dengan keperluan pengurusan pesakit.",
+  "Penceramah mempunyai pengetahuan dan kemahiran yang baik dalam bidang ini.",
   "Penyampaian penceramah jelas, teratur dan mudah difahami.",
   "Bahan pembelajaran membantu pemahaman terhadap topik yang diajar.",
   "Tempoh kursus adalah bersesuaian dengan kandungan yang disampaikan.",
@@ -753,14 +759,19 @@ const courseQuestions = [
 ];
 
 const learningQuestions = [
-  "Saya lebih memahami pendekatan sistematik penilaian awal pesakit trauma.",
-  "Saya lebih memahami prinsip primary survey dan secondary survey.",
-  "Saya dapat mengenal pasti keadaan trauma yang mengancam nyawa dengan lebih baik.",
-  "Saya lebih memahami keutamaan intervensi awal dalam pengurusan pesakit trauma.",
+  "Saya lebih memahami pendekatan sistematik bagi topik yang diajar.",
+  "Saya lebih memahami prinsip teori bagi kursus ini.",
+  "Saya dapat mengenal pasti keadaan kecemasan/klinikal dengan lebih baik.",
+  "Saya lebih memahami keutamaan intervensi awal dalam rawatan.",
   "Latihan praktikal atau simulasi membantu meningkatkan kemahiran saya.",
-  "Saya lebih yakin untuk terlibat dalam pengurusan awal pesakit trauma selepas mengikuti kursus ini.",
+  "Saya lebih yakin untuk terlibat dalam pengurusan pesakit selepas mengikuti kursus ini.",
   "Saya dapat mengaplikasikan ilmu yang dipelajari dalam persekitaran klinikal sebenar."
 ];
+
+// Soalan Kursus Bermula Dari Nombor 5
+renderQuestions('courseQuestions', courseQuestions, 4);
+// Soalan Pembelajaran Bermula Dari Nombor 12
+renderQuestions('learningQuestions', learningQuestions, 11);
 
 function renderQuestions(targetId, questions, prefix) {
   const target = document.getElementById(targetId);
@@ -780,9 +791,6 @@ function renderQuestions(targetId, questions, prefix) {
     target.appendChild(field);
   });
 }
-
-renderQuestions('courseQuestions', courseQuestions, 4);
-renderQuestions('learningQuestions', learningQuestions, 11);
 
 const form = document.getElementById('feedbackForm');
 const progressBar = document.getElementById('progressBar');
@@ -820,29 +828,21 @@ form.addEventListener('submit', async (e) => {
   if (!form.reportValidity()) return;
 
   submitBtn.disabled = true;
-  submitBtn.textContent = 'Menghantar respons ke pelayan...';
+  submitBtn.innerHTML = 'Menghantar respons <span style="display:inline-block; animation: pulse 1s infinite;">...</span>';
 
   const data = new FormData(form);
   const payload = {
     formType: 'feedback',
     timestamp: new Date().toLocaleString('ms-MY', { timeZone: 'Asia/Kuala_Lumpur' }),
+    namaKursus: data.get('Nama Kursus') || '',
     jawatan: data.get('Jawatan') || '',
     pengalaman: data.get('Pengalaman') || '',
     kursusTerdahulu: data.get('Kursus trauma terdahulu') || '',
-    q5: data.get('q5') || '',
-    q6: data.get('q6') || '',
-    q7: data.get('q7') || '',
-    q8: data.get('q8') || '',
-    q9: data.get('q9') || '',
-    q10: data.get('q10') || '',
-    q11: data.get('q11') || '',
-    q12: data.get('q12') || '',
-    q13: data.get('q13') || '',
-    q14: data.get('q14') || '',
-    q15: data.get('q15') || '',
-    q16: data.get('q16') || '',
-    q17: data.get('q17') || '',
-    q18: data.get('q18') || '',
+    q5: data.get('q5') || '', q6: data.get('q6') || '', q7: data.get('q7') || '',
+    q8: data.get('q8') || '', q9: data.get('q9') || '', q10: data.get('q10') || '',
+    q11: data.get('q11') || '', q12: data.get('q12') || '', q13: data.get('q13') || '',
+    q14: data.get('q14') || '', q15: data.get('q15') || '', q16: data.get('q16') || '',
+    q17: data.get('q17') || '', q18: data.get('q18') || '',
     kepuasan: data.get('Kepuasan keseluruhan') || '',
     cadangan: data.get('Cadangan kepada rakan sekerja') || '',
     aspekTerbaik: data.get('Aspek terbaik') || '-',
@@ -858,13 +858,14 @@ form.addEventListener('submit', async (e) => {
     });
 
     let lines = [
-      'MAKLUM BALAS TLSM-BASIC 1/2026',
+      'MAKLUM BALAS KURSUS',
       'Hospital Kuala Nerang',
       `Masa: ${payload.timestamp}`,
       '',
+      `Nama Kursus: ${payload.namaKursus}`,
       `Jawatan: ${payload.jawatan}`,
       `Pengalaman: ${payload.pengalaman}`,
-      `Pernah kursus trauma: ${payload.kursusTerdahulu}`,
+      `Pernah kursus terdahulu: ${payload.kursusTerdahulu}`,
       '',
       'BAHAGIAN B — PENILAIAN KURSUS'
     ];
@@ -874,16 +875,17 @@ form.addEventListener('submit', async (e) => {
     lines.push(
       '',
       'BAHAGIAN D — PENILAIAN KESELURUHAN',
-      `Kepuasan keseluruhan: ${payload.kepuasan}`,
-      `Cadangkan kepada rakan: ${payload.cadangan}`,
+      `Kepuasan: ${payload.kepuasan}`,
+      `Syor kepada rakan: ${payload.cadangan}`,
       `Aspek terbaik: ${payload.aspekTerbaik}`,
       `Penambahbaikan: ${payload.penambahbaikan}`,
-      `Topik masa hadapan: ${payload.topikMasaHadapan}`
+      `Topik tambahan: ${payload.topikMasaHadapan}`
     );
 
     document.getElementById('resultText').textContent = lines.join('\n');
     form.style.display = 'none';
     document.querySelector('.progress-container').style.display = 'none';
+    document.querySelector('.notice').style.display = 'none';
     document.getElementById('result').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -910,6 +912,7 @@ document.getElementById('newFormBtn').addEventListener('click', () => {
   form.reset();
   form.style.display = 'block';
   document.querySelector('.progress-container').style.display = 'block';
+  document.querySelector('.notice').style.display = 'flex';
   document.getElementById('result').style.display = 'none';
   updateProgress();
   window.scrollTo({ top: 0, behavior: 'smooth' });
