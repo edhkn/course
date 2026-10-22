@@ -68,7 +68,7 @@ body {
   100% { transform: translate(45px, 45px) scale(1.08); }
 }
 
-/* --- NAVIGASI TERAPUNG --- */
+/* --- NAVIGASI TERAPUNG DENGAN BUTANG HOME --- */
 nav {
   position: fixed;
   top: 20px;
@@ -81,9 +81,9 @@ nav {
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-color);
   border-radius: 50px;
-  padding: 10px 25px;
+  padding: 10px 20px 10px 24px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   z-index: 100;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
@@ -93,7 +93,7 @@ nav {
 .logo-group {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 14px;
   text-decoration: none;
 }
 
@@ -109,19 +109,48 @@ nav {
 .logo-text {
   font-family: 'Playfair Display', serif;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   color: var(--text-main);
-  line-height: 1.1;
+  line-height: 1.15;
 }
 
 .logo-text span {
   display: block;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   color: var(--accent);
   letter-spacing: 2px;
   text-transform: uppercase;
+}
+
+.nav-home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: var(--accent);
+  padding: 8px 16px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.nav-home-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.nav-home-btn:hover {
+  background: var(--accent);
+  color: var(--bg-base);
+  box-shadow: 0 0 16px var(--accent-glow);
+  transform: translateY(-1px);
 }
 
 /* --- MAIN CONTAINER --- */
@@ -261,7 +290,7 @@ label, .question {
   line-height: 1.5;
 }
 
-input[type=text], select, textarea {
+input[type=text], input[type=email], select, textarea {
   width: 100%;
   background: rgba(0, 0, 0, 0.4);
   border: 1px solid var(--border-color);
@@ -552,8 +581,13 @@ footer {
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
 @media (max-width: 650px) {
-  nav { width: 95%; padding: 12px 18px; border-radius: 30px; }
-  .logo-text { font-size: 0.98rem; }
+  nav { width: 95%; padding: 10px 14px; border-radius: 30px; }
+  .logo-text { font-size: 0.9rem; }
+  .logo-text span { font-size: 0.62rem; }
+  .dept-logo { height: 32px; }
+  .nav-home-btn { padding: 6px 12px; font-size: 0.75rem; }
+  .nav-home-btn span { display: none; }
+  .nav-home-btn svg { width: 15px; height: 15px; margin: 0; }
   .section-body { padding: 20px; }
   .section-head { padding: 18px 20px; }
   .scale label { font-size: 0.8rem; padding: 10px 2px; }
@@ -568,7 +602,7 @@ footer {
   <div class="blob blob-2"></div>
 </div>
 
-<!-- Navigasi Utama Terapung -->
+<!-- Navigasi Utama Terapung dengan Butang Home -->
 <nav>
   <a href="index.html" class="logo-group">
     <img src="https://lh3.googleusercontent.com/d/1O2Nj1Dr4U6wo7ISjdkDRukPYwZUkOOuJ" alt="Logo Jabatan" class="dept-logo">
@@ -576,6 +610,14 @@ footer {
       Hospital Kuala Nerang
       <span>Jabatan Kecemasan & Trauma</span>
     </div>
+  </a>
+
+  <a href="index.html" class="nav-home-btn" title="Kembali ke Laman Utama">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    <span>Laman Utama</span>
   </a>
 </nav>
 
@@ -609,11 +651,11 @@ footer {
             <input type="text" id="nama_kursus" name="Nama Kursus" required placeholder="Contoh: TLSM-BASIC, BLS, atau ATLS" autocomplete="off">
           </div>
           <div class="field">
-            <label for="emel">Emel (Untuk penghantaran salinan PDF Maklum Balas)</label>
+            <label for="emel">2. Alamat Emel (Salinan PDF maklum balas akan dihantar ke sini)</label>
             <input type="email" id="emel" name="Emel" required placeholder="Contoh: nama@moh.gov.my" autocomplete="email">
           </div>
           <div class="field">
-            <label for="role">2. Jawatan</label>
+            <label for="role">3. Jawatan</label>
             <select id="role" name="Jawatan" required>
               <option value="" disabled selected>Pilih jawatan anda</option>
               <option>Pakar Perubatan</option>
@@ -625,7 +667,7 @@ footer {
             </select>
           </div>
           <div class="field">
-            <label for="experience">3. Pengalaman bekerja dalam bidang kecemasan dan trauma</label>
+            <label for="experience">4. Pengalaman bekerja dalam bidang kecemasan dan trauma</label>
             <select id="experience" name="Pengalaman" required>
               <option value="" disabled selected>Pilih tempoh pengalaman</option>
               <option>Kurang 1 tahun</option>
@@ -635,7 +677,7 @@ footer {
             </select>
           </div>
           <div class="field">
-            <span class="question">4. Pernahkah anda menghadiri kursus pengurusan trauma sebelum ini?</span>
+            <span class="question">5. Pernahkah anda menghadiri kursus pengurusan trauma sebelum ini?</span>
             <div class="choice-list">
               <label><input type="radio" name="Kursus trauma terdahulu" value="Ya" required> Ya</label>
               <label><input type="radio" name="Kursus trauma terdahulu" value="Tidak"> Tidak</label>
@@ -670,7 +712,7 @@ footer {
         </div>
         <div class="section-body">
           <div class="field">
-            <span class="question">19. Secara keseluruhan, sejauh manakah anda berpuas hati dengan kursus ini?</span>
+            <span class="question">20. Secara keseluruhan, sejauh manakah anda berpuas hati dengan kursus ini?</span>
             <div class="choice-list">
               <label><input type="radio" name="Kepuasan keseluruhan" value="Sangat tidak berpuas hati" required> Sangat tidak berpuas hati</label>
               <label><input type="radio" name="Kepuasan keseluruhan" value="Tidak berpuas hati"> Tidak berpuas hati</label>
@@ -680,7 +722,7 @@ footer {
             </div>
           </div>
           <div class="field">
-            <span class="question">20. Adakah anda akan mengesyorkan kursus ini kepada rakan sekerja?</span>
+            <span class="question">21. Adakah anda akan mengesyorkan kursus ini kepada rakan sekerja?</span>
             <div class="choice-list">
               <label><input type="radio" name="Cadangan kepada rakan sekerja" value="Ya" required> Ya</label>
               <label><input type="radio" name="Cadangan kepada rakan sekerja" value="Tidak pasti"> Tidak pasti</label>
@@ -688,15 +730,15 @@ footer {
             </div>
           </div>
           <div class="field">
-            <label for="best">21. Apakah aspek terbaik dalam kursus ini?</label>
+            <label for="best">22. Apakah aspek terbaik dalam kursus ini?</label>
             <textarea id="best" name="Aspek terbaik" placeholder="Contoh: latihan praktikal, simulasi, penyampaian penceramah..."></textarea>
           </div>
           <div class="field">
-            <label for="improve">22. Apakah aspek yang perlu ditambah baik?</label>
+            <label for="improve">23. Apakah aspek yang perlu ditambah baik?</label>
             <textarea id="improve" name="Penambahbaikan" placeholder="Nyatakan cadangan penambahbaikan..."></textarea>
           </div>
           <div class="field">
-            <label for="future">23. Apakah topik atau latihan tambahan yang anda ingin pelajari pada masa akan datang?</label>
+            <label for="future">24. Apakah topik atau latihan tambahan yang anda ingin pelajari pada masa akan datang?</label>
             <textarea id="future" name="Topik masa hadapan" placeholder="Contoh: airway management, bleeding control..."></textarea>
           </div>
         </div>
@@ -716,7 +758,7 @@ footer {
         </svg>
       </div>
       <h3 id="resultTitle">Maklum Balas Berjaya Dihantar!</h3>
-      <p id="resultMsg">Terima kasih atas kerjasama anda. Rekod maklum balas telah selamat disimpan ke pangkalan data urus setia.</p>
+      <p id="resultMsg">Terima kasih atas kerjasama anda. Rekod maklum balas telah selamat disimpan dan salinan PDF telah dihantar ke emel anda.</p>
       
       <div class="summary-box">
         <pre id="resultText"></pre>
@@ -749,7 +791,6 @@ footer {
 </footer>
 
 <script>
-// GANTIKAN URL DI BAWAH JIKA PERLU
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEYxrKlKT_ylQPn5WBiFCbLUcZF_TMKgp5ql1LJeZxa2BD_QSqBN4_EIk0OLJqrZ9hLg/exec';
 
 const courseQuestions = [
@@ -772,10 +813,8 @@ const learningQuestions = [
   "Saya dapat mengaplikasikan ilmu yang dipelajari dalam persekitaran klinikal sebenar."
 ];
 
-// Soalan Kursus Bermula Dari Nombor 5
-renderQuestions('courseQuestions', courseQuestions, 4);
-// Soalan Pembelajaran Bermula Dari Nombor 12
-renderQuestions('learningQuestions', learningQuestions, 11);
+renderQuestions('courseQuestions', courseQuestions, 5);
+renderQuestions('learningQuestions', learningQuestions, 12);
 
 function renderQuestions(targetId, questions, prefix) {
   const target = document.getElementById(targetId);
@@ -835,18 +874,20 @@ form.addEventListener('submit', async (e) => {
   submitBtn.innerHTML = 'Menghantar respons <span style="display:inline-block; animation: pulse 1s infinite;">...</span>';
 
   const data = new FormData(form);
+  
   const payload = {
     formType: 'feedback',
     timestamp: new Date().toLocaleString('ms-MY', { timeZone: 'Asia/Kuala_Lumpur' }),
     namaKursus: data.get('Nama Kursus') || '',
+    emel: data.get('Emel') || '',
     jawatan: data.get('Jawatan') || '',
     pengalaman: data.get('Pengalaman') || '',
     kursusTerdahulu: data.get('Kursus trauma terdahulu') || '',
-    q5: data.get('q5') || '', q6: data.get('q6') || '', q7: data.get('q7') || '',
-    q8: data.get('q8') || '', q9: data.get('q9') || '', q10: data.get('q10') || '',
-    q11: data.get('q11') || '', q12: data.get('q12') || '', q13: data.get('q13') || '',
-    q14: data.get('q14') || '', q15: data.get('q15') || '', q16: data.get('q16') || '',
-    q17: data.get('q17') || '', q18: data.get('q18') || '',
+    q6: data.get('q6') || '', q7: data.get('q7') || '', q8: data.get('q8') || '',
+    q9: data.get('q9') || '', q10: data.get('q10') || '', q11: data.get('q11') || '',
+    q12: data.get('q12') || '', q13: data.get('q13') || '', q14: data.get('q14') || '',
+    q15: data.get('q15') || '', q16: data.get('q16') || '', q17: data.get('q17') || '',
+    q18: data.get('q18') || '', q19: data.get('q19') || '',
     kepuasan: data.get('Kepuasan keseluruhan') || '',
     cadangan: data.get('Cadangan kepada rakan sekerja') || '',
     aspekTerbaik: data.get('Aspek terbaik') || '-',
@@ -867,15 +908,16 @@ form.addEventListener('submit', async (e) => {
       `Masa: ${payload.timestamp}`,
       '',
       `Nama Kursus: ${payload.namaKursus}`,
+      `Emel: ${payload.emel}`,
       `Jawatan: ${payload.jawatan}`,
       `Pengalaman: ${payload.pengalaman}`,
       `Pernah kursus terdahulu: ${payload.kursusTerdahulu}`,
       '',
       'BAHAGIAN B — PENILAIAN KURSUS'
     ];
-    courseQuestions.forEach((q, i) => lines.push(`${i+5}. ${q} (Skor: ${payload['q' + (i+5)]})`));
+    courseQuestions.forEach((q, i) => lines.push(`${i+6}. ${q} (Skor: ${payload['q' + (i+6)]})`));
     lines.push('', 'BAHAGIAN C — KEBERKESANAN PEMBELAJARAN');
-    learningQuestions.forEach((q, i) => lines.push(`${i+12}. ${q} (Skor: ${payload['q' + (i+12)]})`));
+    learningQuestions.forEach((q, i) => lines.push(`${i+13}. ${q} (Skor: ${payload['q' + (i+13)]})`));
     lines.push(
       '',
       'BAHAGIAN D — PENILAIAN KESELURUHAN',
