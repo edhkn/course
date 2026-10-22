@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran Kursus | EDHKN</title>
+    <!-- Google Fonts: Inter & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #050914; /* Hitam kebiruan sangat mendalam */
+            --bg-surface: rgba(255, 255, 255, 0.03);
+            --bg-card: rgba(15, 23, 42, 0.6);
+            --accent: #D4AF37; /* Emas Eksklusif */
+            --accent-glow: rgba(212, 175, 55, 0.5);
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-focus: rgba(212, 175, 55, 0.5);
+            --radius-xl: 24px;
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- ANIMATED BACKGROUND BLOBS --- */
+        .bg-blobs {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .blob {
+            position: absolute;
+            filter: blur(90px);
+            opacity: 0.6;
+            border-radius: 50%;
+            animation: float 10s infinite alternate ease-in-out;
+        }
+        .blob-1 {
+            top: -10%; left: -10%;
+            width: 500px; height: 500px;
+            background: rgba(212, 175, 55, 0.12);
+        }
+        .blob-2 {
+            bottom: -20%; right: -10%;
+            width: 600px; height: 600px;
+            background: rgba(14, 165, 233, 0.08);
+            animation-delay: -5s;
+        }
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 50px) scale(1.1); }
+        }
+
+        /* --- NAVIGASI TERAPUNG --- */
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1000px;
+            background: rgba(10, 15, 30, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            padding: 10px 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+            animation: slideDown 0.8s ease-out forwards;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .dept-logo {
+            height: 38px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 50%;
+            background: var(--text-main);
+            padding: 2px;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            line-height: 1.1;
+        }
+
+        .logo-text span {
+            display: block;
+            font-size: 0.7rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* --- MAIN CONTAINER --- */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 140px 5% 80px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header-content {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .kicker {
+            display: inline-block;
+            padding: 6px 18px;
+            background: linear-gradient(90deg, rgba(212,175,55,0.1), rgba(212,175,55,0.02));
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 100px;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            line-height: 1.1;
+            margin-bottom: 15px;
+            font-weight: 700;
+            background: linear-gradient(to bottom right, #FFFFFF 30%, #94A3B8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-content p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+        }
+
+        /* --- FORM CONTAINER (GLASSMORPHISM) --- */
+        .form-container {
+            width: 100%;
+            max-width: 750px;
+            background: var(--bg-surface);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+            opacity: 0; transform: translateY(20px);
+        }
+
+        .notice {
+            background: rgba(14, 165, 233, 0.05); /* Sedikit kebiruan untuk makluman info */
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            padding: 15px 20px;
+            border-radius: var(--radius-md);
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #38bdf8;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            line-height: 1.5;
+        }
+
+        .section-head {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-head h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .section-head p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .section-body {
+            margin-bottom: 40px;
+        }
+
+        .field { margin-bottom: 22px; }
+        .field:last-child { margin-bottom: 0; }
+        
+        label, .question {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+        }
+
+        .field-row { display: grid; grid-template-columns: 1fr; gap: 22px; margin-bottom: 22px; }
+        @media (min-width: 600px) { .field-row { grid-template-columns: 1fr 1fr; } }
+
+        input[type=text], input[type=email], input[type=tel], select {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 14px 16px;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        input::placeholder { color: rgba(148, 163, 184, 0.5); }
+        select option { background: var(--bg-base); color: var(--text-main); }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(0, 0, 0, 0.6);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+        }
+
+        /* CUSTOM RADIO BUTTONS */
+        .choice-list { display: grid; gap: 12px; }
+        .choice-list label {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            font-weight: 400;
+            margin: 0;
+            cursor: pointer;
+            padding: 14px 16px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+        }
+        .choice-list label:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        .choice-list label:has(input:checked) {
+            border-color: var(--accent);
+            background: rgba(212, 175, 55, 0.08);
+            color: var(--accent);
+        }
+        .choice-list input[type="radio"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            margin: 0;
+            position: relative;
+            transition: var(--transition);
+        }
+        .choice-list input[type="radio"]:checked {
+            border-color: var(--accent);
+        }
+        .choice-list input[type="radio"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px; height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        /* BUTTONS */
+        .btnrow { display: flex; gap: 15px; margin-top: 10px; }
+        @media (max-width: 500px) { .btnrow { flex-direction: column; } }
+
+        button {
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            border: 0;
+            border-radius: var(--radius-md);
+            padding: 16px 24px;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+            width: 100%;
+        }
+        
+        button:active { transform: scale(0.98); }
+        button:disabled { opacity: 0.7; cursor: not-allowed; }
+
+        .primary {
+            background: linear-gradient(135deg, var(--accent) 0%, #B8860B 100%);
+            color: var(--bg-base);
+            flex: 2;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        .primary:hover:not(:disabled) {
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            flex: 1;
+        }
+        .secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* SUCCESS RESULT */
+        .result {
+            display: none;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .result-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(16, 185, 129, 0.1);
+            color: #10B981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
+        }
+        .result-icon svg { width: 40px; height: 40px; }
+        .result h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--text-main);
+            margin-bottom: 15px;
+        }
+        .result p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        /* --- FOOTER EKSKLUSIF --- */
+        footer {
+            background-color: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            color: var(--text-muted);
+            padding: 25px 5%;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            z-index: 10;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .footer-container { flex-direction: row; justify-content: space-between; }
+        }
+
+        .footer-logos { display: flex; align-items: center; gap: 15px; }
+        .footer-logos img { height: 35px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)); transition: transform 0.3s; }
+        .footer-logos img:hover { transform: scale(1.05); }
+        .logo-divider { width: 1px; height: 25px; background-color: rgba(255, 255, 255, 0.15); }
+
+        .footer-status {
+            display: flex; align-items: center; gap: 10px;
+            color: var(--accent); letter-spacing: 1px; font-weight: 500;
+            background: rgba(212, 175, 55, 0.05); padding: 6px 16px;
+            border-radius: 50px; border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .pulse-dot {
+            width: 8px; height: 8px; background-color: #10B981; border-radius: 50%;
+            box-shadow: 0 0 0 rgba(16, 185, 129, 0.4); animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .footer-copyright { margin: 0; letter-spacing: 0.5px; text-align: center; }
+        .footer-copyright span { color: var(--text-main); font-weight: 500;}
+
+        /* --- KEYFRAMES --- */
+        @keyframes slideDown { from { top: -100px; opacity: 0; } to { top: 20px; opacity: 1; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 768px) {
+            nav { width: 95%; padding: 12px 20px; border-radius: 30px; }
+            .logo-text { font-size: 1rem; }
+            .form-container { padding: 30px 20px; border-radius: var(--radius-lg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Latar Belakang Animasi -->
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <!-- Navigasi Utama Terapung -->
+    <nav>
+        <a href="index.html" class="logo-group">
+            <img src="https://lh3.googleusercontent.com/d/1O2Nj1Dr4U6wo7ISjdkDRukPYwZUkOOuJ" alt="Logo Jabatan" class="dept-logo">
+            <div class="logo-text">
+                Hospital Kuala Nerang
+                <span>Jabatan Kecemasan & Trauma</span>
+            </div>
+        </a>
+    </nav>
+
+    <!-- Konten Utama -->
+    <main>
+        <div class="header-content">
+            <span class="kicker">E-Sistem Pengurusan Kursus</span>
+            <h1>Pendaftaran Peserta</h1>
+            <p>Sila isikan borang di bawah dengan tepat untuk tujuan tempahan tempat dan penyediaan sijil penyertaan anda.</p>
+        </div>
+
+        <div class="form-container" id="formWrapper">
+            <div class="notice">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                Maklumat yang diberikan akan dilindungi dan digunakan secara eksklusif oleh urus setia EDHKN sahaja.
+            </div>
+            
+            <form id="registrationForm">
+                
+                <!-- Bahagian 1: Maklumat Kursus -->
+                <div class="section-body">
+                    <div class="section-head">
+                        <h2>Maklumat Modul Latihan</h2>
+                        <p>Pilih kursus yang anda ingin sertai.</p>
+                    </div>
+                    
+                    <div class="field">
+                        <label for="kursus">Nama Kursus</label>
+                        <select id="kursus" name="Nama Kursus" required>
+                            <option value="" disabled selected>-- Sila pilih kursus --</option>
+                            <option>TLSM-BASIC 1/2026</option>
+                            <option>Basic Life Support (BLS) 2026</option>
+                            <option>Advanced Trauma Life Support (ATLS)</option>
+                            <option>Kursus Pengurusan Bencana (Disaster Management)</option>
+                            <option>Lain-lain</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Bahagian 2: Maklumat Peribadi -->
+                <div class="section-body">
+                    <div class="section-head">
+                        <h2>Maklumat Peribadi</h2>
+                        <p>Pastikan nama dan butiran anda sama dengan Kad Pengenalan.</p>
+                    </div>
+                    
+                    <div class="field">
+                        <label for="nama">Nama Penuh (Seperti Dalam K/P)</label>
+                        <input type="text" id="nama" name="Nama Penuh" required placeholder="Contoh: Ahmad bin Abu Bakar" autocomplete="name">
+                    </div>
+
+                    <div class="field-row">
+                        <div>
+                            <label for="nokp">No. Kad Pengenalan</label>
+                            <input type="text" id="nokp" name="No KP" required placeholder="Contoh: 900101-02-1234">
+                        </div>
+                        <div>
+                            <label for="telefon">No. Telefon Bimbit</label>
+                            <input type="tel" id="telefon" name="Telefon" required placeholder="Contoh: 012-3456789">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="emel">Alamat Emel</label>
+                        <input type="email" id="emel" name="Emel" required placeholder="Contoh: nama@moh.gov.my" autocomplete="email">
+                    </div>
+                </div>
+
+                <!-- Bahagian 3: Maklumat Pekerjaan & Keperluan -->
+                <div class="section-body" style="margin-bottom: 10px;">
+                    <div class="section-head">
+                        <h2>Maklumat Pekerjaan & Lain-lain</h2>
+                    </div>
+
+                    <div class="field-row">
+                        <div>
+                            <label for="jawatan">Jawatan</label>
+                            <select id="jawatan" name="Jawatan" required>
+                                <option value="" disabled selected>Pilih jawatan</option>
+                                <option>Pakar Perubatan</option>
+                                <option>Pegawai Perubatan (MO)</option>
+                                <option>Penolong Pegawai Perubatan (PPP)</option>
+                                <option>Jururawat (SN/JM)</option>
+                                <option>Penolong Pegawai Perawatan Kesihatan (PPK)</option>
+                                <option>Lain-lain</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="tempat">Tempat Bertugas / Jabatan</label>
+                            <input type="text" id="tempat" name="Tempat Bertugas" required placeholder="Contoh: ED HK Kuala Nerang">
+                        </div>
+                    </div>
+
+                    <div class="field" style="margin-top: 25px;">
+                        <span class="question">Keperluan Diet / Makanan</span>
+                        <div class="choice-list">
+                            <label><input type="radio" name="Diet" value="Normal" required> Normal (Standard)</label>
+                            <label><input type="radio" name="Diet" value="Vegetarian"> Vegetarian</label>
+                            <label><input type="radio" name="Diet" value="Alahan"> Alahan Makanan / Lain-lain</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btnrow">
+                    <button type="submit" id="submitBtn" class="primary">Hantar Pendaftaran</button>
+                    <button type="reset" class="secondary">Kosongkan Borang</button>
+                </div>
+            </form>
+            
+            <!-- RESULT SCREEN -->
+            <div class="result" id="result" aria-live="polite">
+                <div class="result-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+                <h3 id="resultTitle">Pendaftaran Berjaya!</h3>
+                <p id="resultMsg">Terima kasih. Permohonan pendaftaran anda telah direkodkan. Urus setia akan menghubungi anda untuk pengesahan melalui emel atau WhatsApp.</p>
+                <div class="btnrow" style="justify-content: center;">
+                    <button type="button" class="secondary" id="newFormBtn" style="max-width: 250px;">Daftar Peserta Lain</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Kaki Halaman (Footer Moden) -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logos">
+                <img src="https://lh3.googleusercontent.com/d/1O2Nj1Dr4U6wo7ISjdkDRukPYwZUkOOuJ" alt="HKN Logo">
+                <div class="logo-divider"></div>
+                <img src="https://lh3.googleusercontent.com/d/1LdMRx-PF49CWOcrjthClGLJg-yQoJ2mt" alt="MOH Logo">
+            </div>
+
+            <div class="footer-status">
+                <span class="pulse-dot"></span>
+                <span>EDHKN PORTAL Ver 2.0</span>
+            </div>
+
+            <p class="footer-copyright">© 2026 <span>Yassin Razak</span> | All Rights Reserved</p>
+        </div>
+    </footer>
+
+<script>
+// GANTIKAN URL DI BAWAH DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzeOQXiu158K6Hm3b8L6ECCL7qUwwd4tcNJdmW1EtzU3bAj2mALZah3sOuBhfCInRJt/exec'; 
+
+const form = document.getElementById('registrationForm');
+const submitBtn = document.getElementById('submitBtn');
+
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = 'Memproses Pendaftaran <span style="display:inline-block; animation: pulse 1s infinite;">...</span>';
+
+    const data = new FormData(form);
+    
+    // Set parameter formType sebagai 'registration'
+    const payload = {
+        formType: 'registration',
+        timestamp: new Date().toLocaleString('ms-MY', { timeZone: 'Asia/Kuala_Lumpur' }),
+        kursus: data.get('Nama Kursus'),
+        nama: data.get('Nama Penuh'),
+        nokp: data.get('No KP'),
+        telefon: data.get('Telefon'),
+        emel: data.get('Emel'),
+        jawatan: data.get('Jawatan'),
+        tempat: data.get('Tempat Bertugas'),
+        diet: data.get('Diet')
+    };
+
+    try {
+        await fetch(SCRIPT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(payload)
+        });
+
+        form.style.display = 'none';
+        document.querySelector('.notice').style.display = 'none';
+        document.getElementById('result').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    } catch (error) {
+        alert('Maaf, berlaku ralat sambungan: ' + error.message + '. Sila cuba sebentar lagi.');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Hantar Pendaftaran';
+    }
+});
+
+document.getElementById('newFormBtn').addEventListener('click', () => {
+    form.reset();
+    form.style.display = 'block';
+    document.querySelector('.notice').style.display = 'flex';
+    document.getElementById('result').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+</body>
+</html>
