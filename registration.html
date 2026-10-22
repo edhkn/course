@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ms">
 <head>
@@ -70,7 +71,7 @@
             100% { transform: translate(50px, 50px) scale(1.1); }
         }
 
-        /* --- NAVIGASI TERAPUNG --- */
+        /* --- NAVIGASI TERAPUNG DENGAN BUTANG HOME --- */
         nav {
             position: fixed;
             top: 20px;
@@ -78,14 +79,14 @@
             transform: translateX(-50%);
             width: 90%;
             max-width: 1000px;
-            background: rgba(10, 15, 30, 0.6);
+            background: rgba(10, 15, 30, 0.65);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border-color);
             border-radius: 50px;
-            padding: 10px 25px;
+            padding: 10px 20px 10px 24px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             z-index: 100;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
@@ -111,19 +112,48 @@
         .logo-text {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--text-main);
-            line-height: 1.1;
+            line-height: 1.15;
         }
 
         .logo-text span {
             display: block;
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             font-family: 'Inter', sans-serif;
             font-weight: 500;
             color: var(--accent);
             letter-spacing: 2px;
             text-transform: uppercase;
+        }
+
+        .nav-home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--accent);
+            padding: 8px 16px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .nav-home-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .nav-home-btn:hover {
+            background: var(--accent);
+            color: var(--bg-base);
+            box-shadow: 0 0 16px var(--accent-glow);
+            transform: translateY(-1px);
         }
 
         /* --- MAIN CONTAINER --- */
@@ -191,7 +221,7 @@
         }
 
         .notice {
-            background: rgba(14, 165, 233, 0.05); /* Sedikit kebiruan untuk makluman info */
+            background: rgba(14, 165, 233, 0.05);
             border: 1px solid rgba(14, 165, 233, 0.2);
             padding: 15px 20px;
             border-radius: var(--radius-md);
@@ -437,8 +467,13 @@
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         @media (max-width: 768px) {
-            nav { width: 95%; padding: 12px 20px; border-radius: 30px; }
-            .logo-text { font-size: 1rem; }
+            nav { width: 95%; padding: 10px 14px; border-radius: 30px; }
+            .logo-text { font-size: 0.9rem; }
+            .logo-text span { font-size: 0.62rem; }
+            .dept-logo { height: 32px; }
+            .nav-home-btn { padding: 6px 12px; font-size: 0.75rem; }
+            .nav-home-btn span { display: none; }
+            .nav-home-btn svg { width: 15px; height: 15px; margin: 0; }
             .form-container { padding: 30px 20px; border-radius: var(--radius-lg); }
         }
     </style>
@@ -451,7 +486,7 @@
         <div class="blob blob-2"></div>
     </div>
 
-    <!-- Navigasi Utama Terapung -->
+    <!-- Navigasi Utama Terapung dengan Butang Home -->
     <nav>
         <a href="index.html" class="logo-group">
             <img src="https://lh3.googleusercontent.com/d/1O2Nj1Dr4U6wo7ISjdkDRukPYwZUkOOuJ" alt="Logo Jabatan" class="dept-logo">
@@ -459,6 +494,14 @@
                 Hospital Kuala Nerang
                 <span>Jabatan Kecemasan & Trauma</span>
             </div>
+        </a>
+
+        <a href="index.html" class="nav-home-btn" title="Kembali ke Laman Utama">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Laman Utama</span>
         </a>
     </nav>
 
@@ -603,7 +646,6 @@
     </footer>
 
 <script>
-// GANTIKAN URL DI BAWAH DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEYxrKlKT_ylQPn5WBiFCbLUcZF_TMKgp5ql1LJeZxa2BD_QSqBN4_EIk0OLJqrZ9hLg/exec'; 
 
 const form = document.getElementById('registrationForm');
@@ -618,7 +660,6 @@ form.addEventListener('submit', async (e) => {
 
     const data = new FormData(form);
     
-    // Set parameter formType sebagai 'registration'
     const payload = {
         formType: 'registration',
         timestamp: new Date().toLocaleString('ms-MY', { timeZone: 'Asia/Kuala_Lumpur' }),
@@ -662,3 +703,5 @@ document.getElementById('newFormBtn').addEventListener('click', () => {
 </script>
 </body>
 </html>
+
+```
