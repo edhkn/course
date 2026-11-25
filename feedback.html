@@ -17,6 +17,8 @@
   --text-main: #F8FAFC;
   --text-muted: #94A3B8;
   --border-color: rgba(255, 255, 255, 0.08);
+  --error-color: #f87171;
+  --error-bg: rgba(248, 113, 113, 0.08);
   --radius-xl: 24px;
   --radius-lg: 16px;
   --radius-md: 10px;
@@ -234,9 +236,21 @@ h1 {
   border: 1px solid rgba(212, 175, 55, 0.2);
   padding: 15px 20px;
   border-radius: var(--radius-md);
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   font-size: 0.9rem;
   color: var(--accent);
+  line-height: 1.5;
+}
+
+.validation-banner {
+  display: none;
+  background: var(--error-bg);
+  border: 1px solid rgba(248, 113, 113, 0.45);
+  color: var(--error-color);
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  margin-bottom: 24px;
+  font-size: 0.9rem;
   line-height: 1.5;
 }
 
@@ -290,6 +304,14 @@ label, .question {
   line-height: 1.5;
 }
 
+.field-error {
+  display: none;
+  font-size: 0.82rem;
+  color: var(--error-color);
+  margin-top: 6px;
+  font-weight: 500;
+}
+
 input[type=text], input[type=email], select, textarea {
   width: 100%;
   background: rgba(0, 0, 0, 0.4);
@@ -301,6 +323,16 @@ input[type=text], input[type=email], select, textarea {
   font-size: 0.98rem;
   transition: var(--transition);
 }
+
+.caps-input {
+  text-transform: uppercase;
+}
+
+input::placeholder, textarea::placeholder {
+  color: rgba(148, 163, 184, 0.5);
+  text-transform: none;
+}
+
 select option {
   background: #0f172a;
   color: #fff;
@@ -315,6 +347,12 @@ input:focus, select:focus, textarea:focus {
   border-color: var(--accent);
   background: rgba(0, 0, 0, 0.6);
   box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+input.invalid, select.invalid, textarea.invalid {
+  border-color: var(--error-color);
+  background: var(--error-bg);
+  box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.15);
 }
 
 /* CUSTOM RATING SCALE (1 - 5) */
@@ -697,25 +735,29 @@ footer {
   </div>
 
   <div class="form-container">
-    <form id="feedbackForm">
+    <form id="feedbackForm" novalidate>
       <div class="notice">
-        <strong>Nota:</strong> Sila jawab berdasarkan pengalaman anda sepanjang kursus. Untuk soalan skala, pilih satu skor bagi setiap kenyataan. Respons akan direkodkan terus ke sistem pangkalan data kursus.
+        <strong>Nota:</strong> Sila jawab berdasarkan pengalaman anda sepanjang kursus. Ruangan teks wajib menggunakan <strong>CAPSLOCK (HURUF BESAR)</strong> dan <strong>Alamat Emel</strong> mesti dalam format yang betul.
       </div>
+
+      <div class="validation-banner" id="validationBanner" role="alert"></div>
 
       <!-- Bahagian A -->
       <section class="section">
         <div class="section-head">
           <h2>Bahagian A — Maklumat Kursus & Peserta</h2>
-          <p>Sila masukkan nama kursus yang anda hadiri berserta butiran profil.</p>
+          <p>Sila masukkan nama kursus dalam CAPSLOCK berserta butiran profil dan emel yang sah.</p>
         </div>
         <div class="section-body">
           <div class="field">
-            <label for="nama_kursus">1. Nama Kursus</label>
-            <input type="text" id="nama_kursus" name="Nama Kursus" required placeholder="Contoh: TLSM-BASIC, BLS, atau ATLS" autocomplete="off">
+            <label for="nama_kursus">1. Nama Kursus (Wajib CAPSLOCK)</label>
+            <input type="text" id="nama_kursus" name="Nama Kursus" class="caps-input" required placeholder="CONTOH: TLSM-BASIC, BLS ATAU ATLS" autocomplete="off">
+            <span class="field-error" id="err-nama_kursus"></span>
           </div>
           <div class="field">
-            <label for="emel">2. Alamat Emel (Salinan PDF maklum balas akan dihantar ke sini)</label>
-            <input type="email" id="emel" name="Emel" required placeholder="Contoh: nama@moh.gov.my" autocomplete="email">
+            <label for="emel">2. Alamat Emel (Wajib — Salinan PDF maklum balas akan dihantar ke sini)</label>
+            <input type="email" id="emel" name="Emel" required placeholder="contoh: nama@moh.gov.my" autocomplete="email">
+            <span class="field-error" id="err-emel"></span>
           </div>
           <div class="field">
             <label for="role">3. Jawatan</label>
@@ -728,6 +770,7 @@ footer {
               <option>Penolong Pegawai Perawatan Kesihatan (PPK)</option>
               <option>Lain-lain</option>
             </select>
+            <span class="field-error" id="err-role"></span>
           </div>
           <div class="field">
             <label for="experience">4. Pengalaman bekerja dalam bidang kecemasan dan trauma</label>
@@ -738,6 +781,7 @@ footer {
               <option>6–10 tahun</option>
               <option>Lebih 10 tahun</option>
             </select>
+            <span class="field-error" id="err-experience"></span>
           </div>
           <div class="field">
             <span class="question">5. Pernahkah anda menghadiri kursus pengurusan trauma sebelum ini?</span>
@@ -745,6 +789,7 @@ footer {
               <label><input type="radio" name="Kursus trauma terdahulu" value="Ya" required> Ya</label>
               <label><input type="radio" name="Kursus trauma terdahulu" value="Tidak"> Tidak</label>
             </div>
+            <span class="field-error" id="err-prevCourse"></span>
           </div>
         </div>
       </section>
@@ -771,7 +816,7 @@ footer {
       <section class="section">
         <div class="section-head">
           <h2>Bahagian D — Penilaian Keseluruhan</h2>
-          <p>Kongsikan pandangan dan cadangan penambahbaikan anda.</p>
+          <p>Kongsikan pandangan dan cadangan penambahbaikan anda dalam CAPSLOCK.</p>
         </div>
         <div class="section-body">
           <div class="field">
@@ -783,6 +828,7 @@ footer {
               <label><input type="radio" name="Kepuasan keseluruhan" value="Puas hati"> Puas hati</label>
               <label><input type="radio" name="Kepuasan keseluruhan" value="Sangat berpuas hati"> Sangat berpuas hati</label>
             </div>
+            <span class="field-error" id="err-satisfaction"></span>
           </div>
           <div class="field">
             <span class="question">21. Adakah anda akan mengesyorkan kursus ini kepada rakan sekerja?</span>
@@ -791,18 +837,19 @@ footer {
               <label><input type="radio" name="Cadangan kepada rakan sekerja" value="Tidak pasti"> Tidak pasti</label>
               <label><input type="radio" name="Cadangan kepada rakan sekerja" value="Tidak"> Tidak</label>
             </div>
+            <span class="field-error" id="err-recommend"></span>
           </div>
           <div class="field">
-            <label for="best">22. Apakah aspek terbaik dalam kursus ini?</label>
-            <textarea id="best" name="Aspek terbaik" placeholder="Contoh: latihan praktikal, simulasi, penyampaian penceramah..."></textarea>
+            <label for="best">22. Apakah aspek terbaik dalam kursus ini? (CAPSLOCK)</label>
+            <textarea id="best" name="Aspek terbaik" class="caps-input" placeholder="CONTOH: LATIHAN PRAKTIKAL, SIMULASI, PENYAMPAIAN PENCERAMAH..."></textarea>
           </div>
           <div class="field">
-            <label for="improve">23. Apakah aspek yang perlu ditambah baik?</label>
-            <textarea id="improve" name="Penambahbaikan" placeholder="Nyatakan cadangan penambahbaikan..."></textarea>
+            <label for="improve">23. Apakah aspek yang perlu ditambah baik? (CAPSLOCK)</label>
+            <textarea id="improve" name="Penambahbaikan" class="caps-input" placeholder="NYATAKAN CADANGAN PENAMBAHBAIKAN..."></textarea>
           </div>
           <div class="field">
-            <label for="future">24. Apakah topik atau latihan tambahan yang anda ingin pelajari pada masa akan datang?</label>
-            <textarea id="future" name="Topik masa hadapan" placeholder="Contoh: airway management, bleeding control..."></textarea>
+            <label for="future">24. Apakah topik atau latihan tambahan yang anda ingin pelajari pada masa akan datang? (CAPSLOCK)</label>
+            <textarea id="future" name="Topik masa hadapan" class="caps-input" placeholder="CONTOH: AIRWAY MANAGEMENT, BLEEDING CONTROL..."></textarea>
           </div>
         </div>
       </section>
@@ -849,7 +896,7 @@ footer {
       <span>EDHKN PORTAL Ver 2.0</span>
     </div>
 
-    <p class="footer-copyright">© 2026 <span>EDHKN</span>| All Rights Reserved | edhkn@moh.gov.my |</p>
+    <p class="footer-copyright">© 2026 <span> EDHKN </span>| All Rights Reserved</p>
   </div>
 </footer>
 
@@ -885,6 +932,7 @@ function renderQuestions(targetId, questions, prefix) {
     const number = prefix + i + 1;
     const field = document.createElement('div');
     field.className = 'field';
+    field.dataset.qName = `q${number}`;
     field.innerHTML = `
       <span class="question">${number}. ${q}</span>
       <div class="scale" role="radiogroup" aria-label="${q.replace(/"/g,'&quot;')}">
@@ -893,7 +941,8 @@ function renderQuestions(targetId, questions, prefix) {
       <div class="scale-ends">
         <span>1 — Sangat tidak setuju</span>
         <span>5 — Sangat setuju</span>
-      </div>`;
+      </div>
+      <span class="field-error" id="err-q${number}"></span>`;
     target.appendChild(field);
   });
 }
@@ -901,6 +950,165 @@ function renderQuestions(targetId, questions, prefix) {
 const form = document.getElementById('feedbackForm');
 const progressBar = document.getElementById('progressBar');
 const submitBtn = document.getElementById('submitBtn');
+const validationBanner = document.getElementById('validationBanner');
+const capsInputs = document.querySelectorAll('.caps-input');
+const emelInput = document.getElementById('emel');
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+// Paksa CAPSLOCK secara langsung semasa menaip
+capsInputs.forEach(input => {
+  input.addEventListener('input', () => {
+    const start = input.selectionStart;
+    const end = input.selectionEnd;
+    input.value = input.value.toUpperCase();
+    input.setSelectionRange(start, end);
+    clearFieldError(input.id);
+    updateProgress();
+  });
+});
+
+emelInput.addEventListener('input', () => {
+  clearFieldError('emel');
+  updateProgress();
+});
+
+document.getElementById('role').addEventListener('change', () => clearFieldError('role'));
+document.getElementById('experience').addEventListener('change', () => clearFieldError('experience'));
+document.querySelectorAll('input[name="Kursus trauma terdahulu"]').forEach(r => {
+  r.addEventListener('change', () => clearFieldError('prevCourse'));
+});
+document.querySelectorAll('input[name="Kepuasan keseluruhan"]').forEach(r => {
+  r.addEventListener('change', () => clearFieldError('satisfaction'));
+});
+document.querySelectorAll('input[name="Cadangan kepada rakan sekerja"]').forEach(r => {
+  r.addEventListener('change', () => clearFieldError('recommend'));
+});
+
+function setFieldError(id, message) {
+  const el = document.getElementById(id);
+  const errEl = document.getElementById(`err-${id}`);
+  if (el && (el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'TEXTAREA')) {
+    el.classList.add('invalid');
+  }
+  if (errEl) {
+    errEl.textContent = `Amaran: ${message}`;
+    errEl.style.display = 'block';
+  }
+}
+
+function clearFieldError(id) {
+  const el = document.getElementById(id);
+  const errEl = document.getElementById(`err-${id}`);
+  if (el && (el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'TEXTAREA')) {
+    el.classList.remove('invalid');
+  }
+  if (errEl) {
+    errEl.textContent = '';
+    errEl.style.display = 'none';
+  }
+  validationBanner.style.display = 'none';
+}
+
+function clearAllErrors() {
+  document.querySelectorAll('.field-error').forEach(err => {
+    err.textContent = '';
+    err.style.display = 'none';
+  });
+  document.querySelectorAll('input.invalid, select.invalid, textarea.invalid').forEach(inp => {
+    inp.classList.remove('invalid');
+  });
+  validationBanner.style.display = 'none';
+}
+
+function validateFeedbackForm() {
+  clearAllErrors();
+  const errors = [];
+  let firstInvalidEl = null;
+
+  const kursusVal = document.getElementById('nama_kursus').value.trim().toUpperCase();
+  const emelVal = emelInput.value.trim();
+  const roleVal = document.getElementById('role').value;
+  const expVal = document.getElementById('experience').value;
+  const prevCourseVal = form.querySelector('input[name="Kursus trauma terdahulu"]:checked');
+  const satVal = form.querySelector('input[name="Kepuasan keseluruhan"]:checked');
+  const recVal = form.querySelector('input[name="Cadangan kepada rakan sekerja"]:checked');
+
+  if (!kursusVal) {
+    const msg = 'Nama Kursus wajib diisi dalam CAPSLOCK.';
+    setFieldError('nama_kursus', msg);
+    errors.push(msg);
+    if (!firstInvalidEl) firstInvalidEl = document.getElementById('nama_kursus');
+  }
+
+  if (!emelVal) {
+    const msg = 'Alamat Emel wajib diisi.';
+    setFieldError('emel', msg);
+    errors.push(msg);
+    if (!firstInvalidEl) firstInvalidEl = emelInput;
+  } else if (!emailRegex.test(emelVal)) {
+    const msg = 'Format Alamat Emel tidak sah (contoh: nama@moh.gov.my).';
+    setFieldError('emel', msg);
+    errors.push(msg);
+    if (!firstInvalidEl) firstInvalidEl = emelInput;
+  }
+
+  if (!roleVal) {
+    const msg = 'Sila pilih Jawatan anda.';
+    setFieldError('role', msg);
+    errors.push(msg);
+    if (!firstInvalidEl) firstInvalidEl = document.getElementById('role');
+  }
+
+  if (!expVal) {
+    const msg = 'Sila pilih tempoh Pengalaman anda.';
+    setFieldError('experience', msg);
+    errors.push(msg);
+    if (!firstInvalidEl) firstInvalidEl = document.getElementById('experience');
+  }
+
+  if (!prevCourseVal) {
+    const msg = 'Sila jawab soalan 5 (Kursus pengurusan trauma terdahulu).';
+    setFieldError('prevCourse', msg);
+    errors.push(msg);
+    if (!firstInvalidEl) firstInvalidEl = form.querySelector('input[name="Kursus trauma terdahulu"]');
+  }
+
+  for (let n = 6; n <= 19; n++) {
+    const checked = form.querySelector(`input[name="q${n}"]:checked`);
+    if (!checked) {
+      const msg = `Sila pilih skor (1–5) bagi soalan ${n}.`;
+      setFieldError(`q${n}`, msg);
+      errors.push(msg);
+      if (!firstInvalidEl) firstInvalidEl = form.querySelector(`input[name="q${n}"]`);
+    }
+  }
+
+  if (!satVal) {
+    const msg = 'Sila pilih tahap Kepuasan Keseluruhan (soalan 20).';
+    setFieldError('satisfaction', msg);
+    errors.push(msg);
+    if (!firstInvalidEl) firstInvalidEl = form.querySelector('input[name="Kepuasan keseluruhan"]');
+  }
+
+  if (!recVal) {
+    const msg = 'Sila pilih jawapan Cadangan kepada Rakan Sekerja (soalan 21).';
+    setFieldError('recommend', msg);
+    errors.push(msg);
+    if (!firstInvalidEl) firstInvalidEl = form.querySelector('input[name="Cadangan kepada rakan sekerja"]');
+  }
+
+  if (errors.length > 0) {
+    validationBanner.innerHTML = `<strong>AMARAN FORMAT / LENGKAPKAN BORANG:</strong><br>• ${errors.slice(0, 6).join('<br>• ')}${errors.length > 6 ? `<br>• Dan ${errors.length - 6} lagi medan belum lengkap.` : ''}`;
+    validationBanner.style.display = 'block';
+    if (firstInvalidEl) {
+      firstInvalidEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (typeof firstInvalidEl.focus === 'function') firstInvalidEl.focus();
+    }
+    return false;
+  }
+
+  return true;
+}
 
 function updateProgress() {
   const required = [...form.querySelectorAll('[required]')];
@@ -912,18 +1120,30 @@ function updateProgress() {
     const field = form.elements[name];
     if (field instanceof RadioNodeList) {
       if (field.value) done++;
-    } else if (field && field.value) {
-      done++;
+    } else if (field && field.value.trim()) {
+      if (field.type === 'email') {
+        if (emailRegex.test(field.value.trim())) done++;
+      } else {
+        done++;
+      }
     }
   });
 
   progressBar.style.width = (total ? Math.round(done / total * 100) : 0) + '%';
 }
 
-form.addEventListener('change', updateProgress);
+form.addEventListener('change', (e) => {
+  if (e.target && e.target.name) {
+    clearFieldError(`q${e.target.name.replace('q', '')}`);
+  }
+  updateProgress();
+});
+
 form.addEventListener('input', updateProgress);
+
 form.addEventListener('reset', () => {
   setTimeout(() => {
+    clearAllErrors();
     document.getElementById('result').style.display = 'none';
     updateProgress();
   }, 0);
@@ -931,31 +1151,41 @@ form.addEventListener('reset', () => {
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  if (!form.reportValidity()) return;
+  if (!validateFeedbackForm()) return;
 
   submitBtn.disabled = true;
   submitBtn.innerHTML = 'Menghantar respons <span style="display:inline-block; animation: pulse 1s infinite;">...</span>';
 
   const data = new FormData(form);
-  
+  const namaKursusCaps = (data.get('Nama Kursus') || '').trim().toUpperCase();
+  const emelClean = (data.get('Emel') || '').trim();
+  const jawatanCaps = (data.get('Jawatan') || '').trim().toUpperCase();
+  const pengalamanCaps = (data.get('Pengalaman') || '').trim().toUpperCase();
+  const kursusTerdahuluCaps = (data.get('Kursus trauma terdahulu') || '').trim().toUpperCase();
+  const kepuasanCaps = (data.get('Kepuasan keseluruhan') || '').trim().toUpperCase();
+  const cadanganCaps = (data.get('Cadangan kepada rakan sekerja') || '').trim().toUpperCase();
+  const aspekTerbaikCaps = (data.get('Aspek terbaik') || '').trim().toUpperCase() || '-';
+  const penambahbaikanCaps = (data.get('Penambahbaikan') || '').trim().toUpperCase() || '-';
+  const topikMasaHadapanCaps = (data.get('Topik masa hadapan') || '').trim().toUpperCase() || '-';
+
   const payload = {
     formType: 'feedback',
     timestamp: new Date().toLocaleString('ms-MY', { timeZone: 'Asia/Kuala_Lumpur' }),
-    namaKursus: data.get('Nama Kursus') || '',
-    emel: data.get('Emel') || '',
-    jawatan: data.get('Jawatan') || '',
-    pengalaman: data.get('Pengalaman') || '',
-    kursusTerdahulu: data.get('Kursus trauma terdahulu') || '',
+    namaKursus: namaKursusCaps,
+    emel: emelClean,
+    jawatan: jawatanCaps,
+    pengalaman: pengalamanCaps,
+    kursusTerdahulu: kursusTerdahuluCaps,
     q6: data.get('q6') || '', q7: data.get('q7') || '', q8: data.get('q8') || '',
     q9: data.get('q9') || '', q10: data.get('q10') || '', q11: data.get('q11') || '',
     q12: data.get('q12') || '', q13: data.get('q13') || '', q14: data.get('q14') || '',
     q15: data.get('q15') || '', q16: data.get('q16') || '', q17: data.get('q17') || '',
     q18: data.get('q18') || '', q19: data.get('q19') || '',
-    kepuasan: data.get('Kepuasan keseluruhan') || '',
-    cadangan: data.get('Cadangan kepada rakan sekerja') || '',
-    aspekTerbaik: data.get('Aspek terbaik') || '-',
-    penambahbaikan: data.get('Penambahbaikan') || '-',
-    topikMasaHadapan: data.get('Topik masa hadapan') || '-'
+    kepuasan: kepuasanCaps,
+    cadangan: cadanganCaps,
+    aspekTerbaik: aspekTerbaikCaps,
+    penambahbaikan: penambahbaikanCaps,
+    topikMasaHadapan: topikMasaHadapanCaps
   };
 
   try {
@@ -967,34 +1197,35 @@ form.addEventListener('submit', async (e) => {
 
     let lines = [
       'MAKLUM BALAS KURSUS',
-      'Hospital Kuala Nerang',
-      `Masa: ${payload.timestamp}`,
+      'HOSPITAL KUALA NERANG',
+      `MASA: ${payload.timestamp}`,
       '',
-      `Nama Kursus: ${payload.namaKursus}`,
-      `Emel: ${payload.emel}`,
-      `Jawatan: ${payload.jawatan}`,
-      `Pengalaman: ${payload.pengalaman}`,
-      `Pernah kursus terdahulu: ${payload.kursusTerdahulu}`,
+      `NAMA KURSUS: ${payload.namaKursus}`,
+      `EMEL: ${payload.emel}`,
+      `JAWATAN: ${payload.jawatan}`,
+      `PENGALAMAN: ${payload.pengalaman}`,
+      `PERNAH KURSUS TERDAHULU: ${payload.kursusTerdahulu}`,
       '',
       'BAHAGIAN B — PENILAIAN KURSUS'
     ];
-    courseQuestions.forEach((q, i) => lines.push(`${i+6}. ${q} (Skor: ${payload['q' + (i+6)]})`));
+    courseQuestions.forEach((q, i) => lines.push(`${i+6}. ${q.toUpperCase()} (SKOR: ${payload['q' + (i+6)]})`));
     lines.push('', 'BAHAGIAN C — KEBERKESANAN PEMBELAJARAN');
-    learningQuestions.forEach((q, i) => lines.push(`${i+13}. ${q} (Skor: ${payload['q' + (i+13)]})`));
+    learningQuestions.forEach((q, i) => lines.push(`${i+13}. ${q.toUpperCase()} (SKOR: ${payload['q' + (i+13)]})`));
     lines.push(
       '',
       'BAHAGIAN D — PENILAIAN KESELURUHAN',
-      `Kepuasan: ${payload.kepuasan}`,
-      `Syor kepada rakan: ${payload.cadangan}`,
-      `Aspek terbaik: ${payload.aspekTerbaik}`,
-      `Penambahbaikan: ${payload.penambahbaikan}`,
-      `Topik tambahan: ${payload.topikMasaHadapan}`
+      `KEPUASAN: ${payload.kepuasan}`,
+      `SYOR KEPADA RAKAN: ${payload.cadangan}`,
+      `ASPEK TERBAIK: ${payload.aspekTerbaik}`,
+      `PENAMBAHBAIKAN: ${payload.penambahbaikan}`,
+      `TOPIK TAMBAHAN: ${payload.topikMasaHadapan}`
     );
 
     document.getElementById('resultText').textContent = lines.join('\n');
     form.style.display = 'none';
     document.querySelector('.progress-container').style.display = 'none';
     document.querySelector('.notice').style.display = 'none';
+    validationBanner.style.display = 'none';
     document.getElementById('result').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -1019,9 +1250,10 @@ document.getElementById('copyBtn').addEventListener('click', async () => {
 
 document.getElementById('newFormBtn').addEventListener('click', () => {
   form.reset();
+  clearAllErrors();
   form.style.display = 'block';
   document.querySelector('.progress-container').style.display = 'block';
-  document.querySelector('.notice').style.display = 'flex';
+  document.querySelector('.notice').style.display = 'block';
   document.getElementById('result').style.display = 'none';
   updateProgress();
   window.scrollTo({ top: 0, behavior: 'smooth' });
