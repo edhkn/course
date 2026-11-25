@@ -70,32 +70,32 @@
             100% { transform: translate(50px, 50px) scale(1.1); }
         }
 
-        /* --- NAVIGASI TERAPUNG DENGAN BUTANG HOME --- */
+        /* --- FLOATING HEADER --- */
         nav {
             position: fixed;
-            top: 20px;
+            top: 18px;
             left: 50%;
             transform: translateX(-50%);
-            width: 90%;
-            max-width: 1000px;
-            background: rgba(10, 15, 30, 0.65);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color);
+            width: 92%;
+            max-width: 1050px;
+            background: rgba(10, 15, 30, 0.72);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 50px;
             padding: 10px 20px 10px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 100;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
             animation: slideDown 0.8s ease-out forwards;
         }
 
         .logo-group {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 14px;
             text-decoration: none;
         }
 
@@ -161,7 +161,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 140px 5% 80px;
+            padding: 120px 5% 120px;
             position: relative;
             z-index: 10;
         }
@@ -411,45 +411,109 @@
             font-size: 1.1rem;
         }
 
-        /* --- FOOTER EKSKLUSIF --- */
+        /* --- FLOATING FOOTER --- */
         footer {
-            background-color: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
+            position: fixed;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            max-width: 1050px;
+            background: rgba(10, 15, 30, 0.72);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 10px 24px;
             color: var(--text-muted);
-            padding: 25px 5%;
-            border-top: 1px solid var(--border-color);
-            font-size: 0.85rem;
-            z-index: 10;
+            font-size: 0.82rem;
+            z-index: 100;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: slideUpFooter 0.8s ease-out forwards;
         }
 
         .footer-container {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+            justify-content: space-between;
+            gap: 15px;
+            width: 100%;
         }
 
-        @media (min-width: 768px) {
-            .footer-container { flex-direction: row; justify-content: space-between; }
+        .footer-logos {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .footer-logos { display: flex; align-items: center; gap: 15px; }
-        .footer-logos img { height: 35px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)); transition: transform 0.3s; }
-        .footer-logos img:hover { transform: scale(1.05); }
-        .logo-divider { width: 1px; height: 25px; background-color: rgba(255, 255, 255, 0.15); }
+        .footer-logos img {
+            height: 30px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+            transition: transform 0.3s;
+        }
+
+        .footer-logos img:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-divider {
+            width: 1px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.15);
+        }
 
         .footer-status {
-            display: flex; align-items: center; gap: 10px;
-            color: var(--accent); letter-spacing: 1px; font-weight: 500;
-            background: rgba(212, 175, 55, 0.05); padding: 6px 16px;
-            border-radius: 50px; border: 1px solid rgba(212, 175, 55, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            letter-spacing: 1px;
+            font-weight: 500;
+            font-size: 0.78rem;
+            background: rgba(212, 175, 55, 0.06);
+            padding: 5px 14px;
+            border-radius: 50px;
+            border: 1px solid rgba(212, 175, 55, 0.15);
         }
 
         .pulse-dot {
-            width: 8px; height: 8px; background-color: #10B981; border-radius: 50%;
-            box-shadow: 0 0 0 rgba(16, 185, 129, 0.4); animation: pulse 2s infinite;
+            width: 7px;
+            height: 7px;
+            background-color: #10B981;
+            border-radius: 50%;
+            box-shadow: 0 0 0 rgba(16, 185, 129, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        .footer-copyright {
+            margin: 0;
+            letter-spacing: 0.4px;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .footer-copyright span {
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        /* --- KEYFRAMES --- */
+        @keyframes slideDown {
+            from { top: -100px; opacity: 0; }
+            to { top: 18px; opacity: 1; }
+        }
+
+        @keyframes slideUpFooter {
+            from { bottom: -100px; opacity: 0; }
+            to { bottom: 18px; opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes pulse {
@@ -458,22 +522,21 @@
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
 
-        .footer-copyright { margin: 0; letter-spacing: 0.5px; text-align: center; }
-        .footer-copyright span { color: var(--text-main); font-weight: 500;}
-
-        /* --- KEYFRAMES --- */
-        @keyframes slideDown { from { top: -100px; opacity: 0; } to { top: 20px; opacity: 1; } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
         @media (max-width: 768px) {
-            nav { width: 95%; padding: 10px 14px; border-radius: 30px; }
-            .logo-text { font-size: 0.9rem; }
+            nav { width: 94%; padding: 9px 14px 9px 16px; border-radius: 40px; top: 12px; }
+            .logo-text { font-size: 0.92rem; }
             .logo-text span { font-size: 0.62rem; }
             .dept-logo { height: 32px; }
-            .nav-home-btn { padding: 6px 12px; font-size: 0.75rem; }
+            .nav-home-btn { padding: 7px 12px; }
             .nav-home-btn span { display: none; }
-            .nav-home-btn svg { width: 15px; height: 15px; margin: 0; }
+
+            main { padding-top: 105px; padding-bottom: 105px; }
             .form-container { padding: 30px 20px; border-radius: var(--radius-lg); }
+
+            footer { width: 94%; bottom: 12px; padding: 8px 16px; border-radius: 40px; }
+            .footer-logos img { height: 24px; }
+            .footer-status { display: none; }
+            .footer-copyright { font-size: 0.74rem; }
         }
     </style>
 </head>
@@ -485,7 +548,7 @@
         <div class="blob blob-2"></div>
     </div>
 
-    <!-- Navigasi Utama Terapung dengan Butang Home -->
+    <!-- FLOATING HEADER -->
     <nav>
         <a href="index.html" class="logo-group">
             <img src="https://lh3.googleusercontent.com/d/1O2Nj1Dr4U6wo7ISjdkDRukPYwZUkOOuJ" alt="Logo Jabatan" class="dept-logo">
@@ -619,7 +682,7 @@
         </div>
     </main>
 
-    <!-- Kaki Halaman (Footer Moden) -->
+    <!-- FLOATING FOOTER -->
     <footer>
         <div class="footer-container">
             <div class="footer-logos">
@@ -633,7 +696,7 @@
                 <span>EDHKN PORTAL Ver 2.0</span>
             </div>
 
-            <p class="footer-copyright">© 2026 <span>Yassin Razak</span> | All Rights Reserved</p>
+            <p class="footer-copyright">© 2026 <span>EDHKN</span> | All Rights Reserved</p>
         </div>
     </footer>
 
