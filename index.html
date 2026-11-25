@@ -10,16 +10,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-base: #050914; /* Hitam kebiruan sangat mendalam */
+            --bg-base: #050914;
             --bg-surface: rgba(255, 255, 255, 0.03);
-            --accent: #D4AF37; /* Emas Eksklusif */
+            --accent: #D4AF37;
             --accent-glow: rgba(212, 175, 55, 0.5);
             --text-main: #F8FAFC;
             --text-muted: #94A3B8;
             --border-color: rgba(255, 255, 255, 0.08);
             --radius-xl: 24px;
             --radius-lg: 16px;
-            --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            --transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -54,12 +54,12 @@
         .blob-1 {
             top: -10%; left: -10%;
             width: 500px; height: 500px;
-            background: rgba(212, 175, 55, 0.15); /* Emas */
+            background: rgba(212, 175, 55, 0.15);
         }
         .blob-2 {
             bottom: -20%; right: -10%;
             width: 600px; height: 600px;
-            background: rgba(14, 165, 233, 0.1); /* Biru Cyan */
+            background: rgba(14, 165, 233, 0.1);
             animation-delay: -5s;
         }
         @keyframes float {
@@ -67,32 +67,32 @@
             100% { transform: translate(50px, 50px) scale(1.1); }
         }
 
-        /* --- NAVIGASI TERAPUNG (FLOATING ISLAND) --- */
+        /* --- FLOATING HEADER --- */
         nav {
             position: fixed;
-            top: 20px;
+            top: 18px;
             left: 50%;
             transform: translateX(-50%);
-            width: 90%;
-            max-width: 1000px;
-            background: rgba(10, 15, 30, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color);
+            width: 92%;
+            max-width: 1050px;
+            background: rgba(10, 15, 30, 0.72);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 50px;
-            padding: 10px 25px;
+            padding: 10px 20px 10px 24px;
             display: flex;
-            justify-content: center; /* Logo di tengah */
+            justify-content: space-between;
             align-items: center;
             z-index: 100;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
-            animation: slideDown 1s ease-out forwards;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            animation: slideDown 0.8s ease-out forwards;
         }
 
         .logo-group {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 14px;
             text-decoration: none;
         }
 
@@ -108,15 +108,14 @@
         .logo-text {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--text-main);
-            line-height: 1.1;
-            letter-spacing: 0.5px;
+            line-height: 1.15;
         }
 
         .logo-text span {
             display: block;
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             font-family: 'Inter', sans-serif;
             font-weight: 500;
             color: var(--accent);
@@ -124,14 +123,43 @@
             text-transform: uppercase;
         }
 
-        /* --- HERO SECTION --- */
+        .nav-home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--accent);
+            padding: 8px 16px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .nav-home-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .nav-home-btn:hover {
+            background: var(--accent);
+            color: var(--bg-base);
+            box-shadow: 0 0 16px var(--accent-glow);
+            transform: translateY(-1px);
+        }
+
+        /* --- HERO SECTION (RUANG SELAMAT HEADER & FOOTER TERAPUNG) --- */
         .hero {
             flex: 1; 
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 160px 5% 100px;
+            padding: 130px 5% 120px;
             text-align: center;
             position: relative;
             z-index: 10;
@@ -198,7 +226,7 @@
             padding: 45px 35px;
             text-decoration: none;
             color: var(--text-main);
-            transition: var(--transition);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             position: relative;
             overflow: hidden;
             display: flex;
@@ -210,7 +238,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
-        /* Efek Glow apabila berlegar (hover) */
         .portal-card::before {
             content: '';
             position: absolute;
@@ -250,7 +277,7 @@
             justify-content: center;
             margin-bottom: 25px;
             color: var(--accent);
-            transition: var(--transition);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.05);
         }
 
@@ -261,7 +288,7 @@
             box-shadow: 0 0 20px var(--accent-glow);
         }
 
-        svg { width: 32px; height: 32px; fill: currentColor; }
+        .card-icon svg { width: 32px; height: 32px; fill: currentColor; }
 
         .portal-card h3 {
             font-family: 'Playfair Display', serif;
@@ -278,78 +305,108 @@
             line-height: 1.6;
         }
 
-        /* --- FOOTER EKSKLUSIF --- */
+        /* --- FLOATING FOOTER --- */
         footer {
-            background-color: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
+            position: fixed;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            max-width: 1050px;
+            background: rgba(10, 15, 30, 0.72);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 10px 24px;
             color: var(--text-muted);
-            padding: 25px 5%;
-            border-top: 1px solid var(--border-color);
-            font-size: 0.85rem;
-            z-index: 10;
+            font-size: 0.82rem;
+            z-index: 100;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: slideUpFooter 0.8s ease-out forwards;
         }
 
         .footer-container {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        @media (min-width: 768px) {
-            .footer-container {
-                flex-direction: row;
-                justify-content: space-between;
-            }
+            justify-content: space-between;
+            gap: 15px;
+            width: 100%;
         }
 
         .footer-logos {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
         .footer-logos img {
-            height: 35px; /* Saiz elegan */
+            height: 30px;
             width: auto;
             object-fit: contain;
-            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
             transition: transform 0.3s;
         }
-        
+
         .footer-logos img:hover {
             transform: scale(1.05);
         }
 
         .logo-divider {
             width: 1px;
-            height: 25px;
+            height: 20px;
             background-color: rgba(255, 255, 255, 0.15);
         }
 
         .footer-status {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             color: var(--accent);
             letter-spacing: 1px;
             font-weight: 500;
-            background: rgba(212, 175, 55, 0.05);
-            padding: 6px 16px;
+            font-size: 0.78rem;
+            background: rgba(212, 175, 55, 0.06);
+            padding: 5px 14px;
             border-radius: 50px;
-            border: 1px solid rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.15);
         }
 
         .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #10B981; /* Hijau zamrud */
+            width: 7px;
+            height: 7px;
+            background-color: #10B981;
             border-radius: 50%;
-            display: inline-block;
             box-shadow: 0 0 0 rgba(16, 185, 129, 0.4);
             animation: pulse 2s infinite;
+        }
+
+        .footer-copyright {
+            margin: 0;
+            letter-spacing: 0.4px;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .footer-copyright span {
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        /* --- ANIMASI & RESPONSIF --- */
+        @keyframes slideDown {
+            from { top: -100px; opacity: 0; }
+            to { top: 18px; opacity: 1; }
+        }
+
+        @keyframes slideUpFooter {
+            from { bottom: -100px; opacity: 0; }
+            to { bottom: 18px; opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes pulse {
@@ -358,27 +415,21 @@
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
 
-        .footer-copyright {
-            margin: 0;
-            letter-spacing: 0.5px;
-            text-align: center;
-        }
-        .footer-copyright span { color: var(--text-main); font-weight: 500;}
-
-        /* --- ANIMASI KEYFRAMES --- */
-        @keyframes slideDown {
-            from { top: -100px; opacity: 0; }
-            to { top: 20px; opacity: 1; }
-        }
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         @media (max-width: 768px) {
-            .hero { padding-top: 140px; }
+            nav { width: 94%; padding: 9px 14px 9px 16px; border-radius: 40px; top: 12px; }
+            .logo-text { font-size: 0.92rem; }
+            .logo-text span { font-size: 0.62rem; }
+            .dept-logo { height: 32px; }
+            .nav-home-btn { padding: 7px 12px; }
+            .nav-home-btn span { display: none; }
+
+            .hero { padding: 110px 5% 110px; }
             .hero h1 { font-size: 2.5rem; }
-            nav { width: 95%; padding: 12px 20px; border-radius: 30px; }
-            .logo-text { font-size: 1rem; }
+
+            footer { width: 94%; bottom: 12px; padding: 8px 16px; border-radius: 40px; }
+            .footer-logos img { height: 24px; }
+            .footer-status { display: none; }
+            .footer-copyright { font-size: 0.74rem; }
         }
     </style>
 </head>
@@ -390,14 +441,22 @@
         <div class="blob blob-2"></div>
     </div>
 
-    <!-- Navigasi Utama Terapung -->
+    <!-- FLOATING HEADER -->
     <nav>
-        <a href="#" class="logo-group">
+        <a href="index.html" class="logo-group">
             <img src="https://lh3.googleusercontent.com/d/1O2Nj1Dr4U6wo7ISjdkDRukPYwZUkOOuJ" alt="Logo Jabatan" class="dept-logo">
             <div class="logo-text">
                 Hospital Kuala Nerang
                 <span>Jabatan Kecemasan & Trauma</span>
             </div>
+        </a>
+
+        <a href="index.html" class="nav-home-btn" title="Kembali ke Laman Utama">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Laman Utama</span>
         </a>
     </nav>
 
@@ -443,7 +502,7 @@
         </div>
     </header>
 
-    <!-- Kaki Halaman (Footer Moden) -->
+    <!-- FLOATING FOOTER -->
     <footer>
         <div class="footer-container">
             <div class="footer-logos">
@@ -457,7 +516,7 @@
                 <span>EDHKN PORTAL Ver 2.0</span>
             </div>
 
-            <p class="footer-copyright">© 2026 <span>Yassin Razak</span> | All Rights Reserved</p>
+            <p class="footer-copyright">© 2026 <span>EDHKN</span> edhkn@moh.gov.my | All Rights Reserved</p>
         </div>
     </footer>
 
