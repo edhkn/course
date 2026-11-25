@@ -10,10 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-base: #050914; /* Hitam kebiruan sangat mendalam */
+            --bg-base: #050914;
             --bg-surface: rgba(255, 255, 255, 0.03);
             --bg-card: rgba(15, 23, 42, 0.6);
-            --accent: #D4AF37; /* Emas Eksklusif */
+            --accent: #D4AF37;
             --accent-glow: rgba(212, 175, 55, 0.5);
             --text-main: #F8FAFC;
             --text-muted: #94A3B8;
@@ -70,32 +70,32 @@
             100% { transform: translate(50px, 50px) scale(1.1); }
         }
 
-        /* --- NAVIGASI TERAPUNG --- */
+        /* --- FLOATING HEADER (NAVIGASI TERAPUNG) --- */
         nav {
             position: fixed;
-            top: 20px;
+            top: 18px;
             left: 50%;
             transform: translateX(-50%);
-            width: 90%;
-            max-width: 1000px;
-            background: rgba(10, 15, 30, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color);
+            width: 92%;
+            max-width: 1050px;
+            background: rgba(10, 15, 30, 0.72);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 50px;
-            padding: 10px 25px;
+            padding: 10px 20px 10px 24px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             z-index: 100;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
             animation: slideDown 0.8s ease-out forwards;
         }
 
         .logo-group {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 14px;
             text-decoration: none;
         }
 
@@ -111,19 +111,48 @@
         .logo-text {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--text-main);
-            line-height: 1.1;
+            line-height: 1.15;
         }
 
         .logo-text span {
             display: block;
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             font-family: 'Inter', sans-serif;
             font-weight: 500;
             color: var(--accent);
             letter-spacing: 2px;
             text-transform: uppercase;
+        }
+
+        .nav-home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--accent);
+            padding: 8px 16px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .nav-home-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .nav-home-btn:hover {
+            background: var(--accent);
+            color: var(--bg-base);
+            box-shadow: 0 0 16px var(--accent-glow);
+            transform: translateY(-1px);
         }
 
         /* --- MAIN CONTAINER --- */
@@ -132,14 +161,14 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 140px 5% 80px;
+            padding: 125px 5% 125px; /* Ruang cukup untuk header & footer terapung */
             position: relative;
             z-index: 10;
         }
 
         .header-content {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
             animation: fadeInUp 0.8s ease-out forwards;
         }
 
@@ -313,7 +342,7 @@
         .btnrow { display: flex; gap: 15px; margin-top: 10px; }
         @media (max-width: 500px) { .btnrow { flex-direction: column; } }
 
-        button {
+        button, .btn-link {
             font-family: 'Inter', sans-serif;
             cursor: pointer;
             border: 0;
@@ -324,9 +353,14 @@
             letter-spacing: 0.5px;
             transition: var(--transition);
             width: 100%;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         
-        button:active { transform: scale(0.98); }
+        button:active, .btn-link:active { transform: scale(0.98); }
         button:disabled { opacity: 0.7; cursor: not-allowed; }
 
         .primary {
@@ -354,7 +388,7 @@
         .result {
             display: none;
             text-align: center;
-            padding: 50px 20px;
+            padding: 35px 15px;
         }
         .result-icon {
             width: 80px;
@@ -365,7 +399,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 25px;
+            margin: 0 auto 22px;
             box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
         }
         .result-icon svg { width: 40px; height: 40px; }
@@ -373,53 +407,88 @@
             font-family: 'Playfair Display', serif;
             font-size: 2rem;
             color: var(--text-main);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         .result p {
             color: var(--text-muted);
-            margin-bottom: 30px;
-            font-size: 1.1rem;
+            margin-bottom: 28px;
+            font-size: 1.02rem;
+            line-height: 1.65;
+        }
+        .feedback-callout {
+            background: rgba(212, 175, 55, 0.06);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        .feedback-callout p {
+            font-size: 0.92rem;
+            color: var(--text-main);
+            margin-bottom: 14px;
         }
 
-        /* --- FOOTER EKSKLUSIF --- */
+        /* --- FLOATING FOOTER (KAKI HALAMAN TERAPUNG) --- */
         footer {
-            background-color: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
+            position: fixed;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            max-width: 1050px;
+            background: rgba(10, 15, 30, 0.72);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 10px 24px;
             color: var(--text-muted);
-            padding: 25px 5%;
-            border-top: 1px solid var(--border-color);
-            font-size: 0.85rem;
-            z-index: 10;
+            font-size: 0.82rem;
+            z-index: 100;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: slideUpFooter 0.8s ease-out forwards;
         }
 
         .footer-container {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+            justify-content: space-between;
+            gap: 15px;
+            width: 100%;
         }
 
-        @media (min-width: 768px) {
-            .footer-container { flex-direction: row; justify-content: space-between; }
+        .footer-logos { display: flex; align-items: center; gap: 12px; }
+        .footer-logos img {
+            height: 30px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
+            transition: transform 0.3s;
         }
-
-        .footer-logos { display: flex; align-items: center; gap: 15px; }
-        .footer-logos img { height: 35px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)); transition: transform 0.3s; }
         .footer-logos img:hover { transform: scale(1.05); }
-        .logo-divider { width: 1px; height: 25px; background-color: rgba(255, 255, 255, 0.15); }
+        .logo-divider { width: 1px; height: 20px; background-color: rgba(255, 255, 255, 0.15); }
 
         .footer-status {
-            display: flex; align-items: center; gap: 10px;
-            color: var(--accent); letter-spacing: 1px; font-weight: 500;
-            background: rgba(212, 175, 55, 0.05); padding: 6px 16px;
-            border-radius: 50px; border: 1px solid rgba(212, 175, 55, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            letter-spacing: 1px;
+            font-weight: 500;
+            font-size: 0.78rem;
+            background: rgba(212, 175, 55, 0.06);
+            padding: 5px 14px;
+            border-radius: 50px;
+            border: 1px solid rgba(212, 175, 55, 0.15);
         }
 
         .pulse-dot {
-            width: 8px; height: 8px; background-color: #10B981; border-radius: 50%;
-            box-shadow: 0 0 0 rgba(16, 185, 129, 0.4); animation: pulse 2s infinite;
+            width: 7px; height: 7px;
+            background-color: #10B981;
+            border-radius: 50%;
+            box-shadow: 0 0 0 rgba(16, 185, 129, 0.4);
+            animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
@@ -428,17 +497,29 @@
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
 
-        .footer-copyright { margin: 0; letter-spacing: 0.5px; text-align: center; }
-        .footer-copyright span { color: var(--text-main); font-weight: 500;}
+        .footer-copyright { margin: 0; letter-spacing: 0.4px; text-align: right; white-space: nowrap; }
+        .footer-copyright span { color: var(--text-main); font-weight: 500; }
 
         /* --- KEYFRAMES --- */
-        @keyframes slideDown { from { top: -100px; opacity: 0; } to { top: 20px; opacity: 1; } }
+        @keyframes slideDown { from { top: -100px; opacity: 0; } to { top: 18px; opacity: 1; } }
+        @keyframes slideUpFooter { from { bottom: -100px; opacity: 0; } to { bottom: 18px; opacity: 1; } }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         @media (max-width: 768px) {
-            nav { width: 95%; padding: 12px 20px; border-radius: 30px; }
-            .logo-text { font-size: 1rem; }
-            .form-container { padding: 30px 20px; border-radius: var(--radius-lg); }
+            nav { width: 94%; padding: 9px 14px 9px 16px; border-radius: 40px; top: 12px; }
+            .logo-text { font-size: 0.92rem; }
+            .logo-text span { font-size: 0.62rem; }
+            .dept-logo { height: 32px; }
+            .nav-home-btn { padding: 7px 12px; }
+            .nav-home-btn span { display: none; }
+
+            main { padding: 105px 4% 105px; }
+            .form-container { padding: 26px 18px; border-radius: var(--radius-lg); }
+
+            footer { width: 94%; bottom: 12px; padding: 8px 16px; border-radius: 40px; }
+            .footer-logos img { height: 24px; }
+            .footer-status { display: none; } /* Kekal kemas sebaris pada skrin telefon */
+            .footer-copyright { font-size: 0.74rem; }
         }
     </style>
 </head>
@@ -450,7 +531,7 @@
         <div class="blob blob-2"></div>
     </div>
 
-    <!-- Navigasi Utama Terapung -->
+    <!-- Floating Header -->
     <nav>
         <a href="index.html" class="logo-group">
             <img src="https://lh3.googleusercontent.com/d/1O2Nj1Dr4U6wo7ISjdkDRukPYwZUkOOuJ" alt="Logo Jabatan" class="dept-logo">
@@ -458,6 +539,14 @@
                 Hospital Kuala Nerang
                 <span>Jabatan Kecemasan & Trauma</span>
             </div>
+        </a>
+
+        <a href="index.html" class="nav-home-btn" title="Kembali ke Laman Utama">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Laman Utama</span>
         </a>
     </nav>
 
@@ -502,7 +591,7 @@
                 <div class="section-body" style="margin-bottom: 10px;">
                     <div class="section-head">
                         <h2>Maklumat Peserta</h2>
-                        <p>Sila isikan butiran peribadi anda dengan tepat untuk tujuan pensijilan.</p>
+                        <p>Sila isikan butiran peribadi anda dengan tepat untuk tujuan pensijilan dan penghantaran PDF.</p>
                     </div>
                     
                     <div class="field">
@@ -522,7 +611,7 @@
                     </div>
 
                     <div class="field">
-                        <label for="emel">Alamat Emel</label>
+                        <label for="emel">Alamat Emel (Salinan PDF & pautan maklum balas akan dihantar ke sini)</label>
                         <input type="email" id="emel" name="Emel" required placeholder="Contoh: nama@moh.gov.my" autocomplete="email">
                     </div>
 
@@ -560,7 +649,13 @@
                     </svg>
                 </div>
                 <h3 id="resultTitle">Kehadiran Direkodkan!</h3>
-                <p id="resultMsg">Terima kasih. Masa dan tarikh kehadiran anda telah direkodkan ke dalam pangkalan data urus setia dengan jayanya.</p>
+                <p id="resultMsg">Terima kasih. Rekod kehadiran anda telah disimpan dan <strong>salinan PDF berserta pautan maklum balas</strong> telah dihantar ke emel anda.</p>
+                
+                <div class="feedback-callout">
+                    <p>Sila lengkapkan penilaian kursus selepas sesi tamat melalui pautan di bawah:</p>
+                    <a href="https://edhkn.github.io/course/feedback.html" class="btn-link primary" style="max-width: 300px; margin: 0 auto;">Isi Borang Maklum Balas</a>
+                </div>
+
                 <div class="btnrow" style="justify-content: center;">
                     <button type="button" class="secondary" id="newFormBtn" style="max-width: 250px;">Daftar Peserta Lain</button>
                 </div>
@@ -568,7 +663,7 @@
         </div>
     </main>
 
-    <!-- Kaki Halaman (Footer Moden) -->
+    <!-- Floating Footer -->
     <footer>
         <div class="footer-container">
             <div class="footer-logos">
@@ -582,12 +677,11 @@
                 <span>EDHKN PORTAL Ver 2.0</span>
             </div>
 
-            <p class="footer-copyright">© 2026 <span>Yassin Razak</span> | All Rights Reserved</p>
+            <p class="footer-copyright">© 2026 <span>EDHKN</span> | All Rights Reserved</p>
         </div>
     </footer>
 
 <script>
-// GANTIKAN URL DI BAWAH DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEYxrKlKT_ylQPn5WBiFCbLUcZF_TMKgp5ql1LJeZxa2BD_QSqBN4_EIk0OLJqrZ9hLg/exec'; 
 
 const form = document.getElementById('attendanceForm');
@@ -612,7 +706,8 @@ form.addEventListener('submit', async (e) => {
         telefon: data.get('Telefon'),
         emel: data.get('Emel'),
         jawatan: data.get('Jawatan'),
-        tempat: data.get('Tempat Bertugas')
+        tempat: data.get('Tempat Bertugas'),
+        feedbackUrl: 'https://edhkn.github.io/course/feedback.html'
     };
 
     try {
