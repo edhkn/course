@@ -19,6 +19,8 @@
             --text-muted: #94A3B8;
             --border-color: rgba(255, 255, 255, 0.08);
             --border-focus: rgba(212, 175, 55, 0.5);
+            --error-color: #f87171;
+            --error-bg: rgba(248, 113, 113, 0.08);
             --radius-xl: 24px;
             --radius-lg: 16px;
             --radius-md: 10px;
@@ -233,6 +235,18 @@
             line-height: 1.5;
         }
 
+        .validation-banner {
+            display: none;
+            background: var(--error-bg);
+            border: 1px solid rgba(248, 113, 113, 0.45);
+            color: var(--error-color);
+            padding: 14px 18px;
+            border-radius: var(--radius-md);
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
         .section-head {
             margin-bottom: 25px;
             padding-bottom: 15px;
@@ -267,6 +281,21 @@
             letter-spacing: 0.3px;
         }
 
+        .hint-text {
+            display: block;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        .field-error {
+            display: none;
+            font-size: 0.82rem;
+            color: var(--error-color);
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
         .field-row { display: grid; grid-template-columns: 1fr; gap: 22px; margin-bottom: 22px; }
         @media (min-width: 600px) { .field-row { grid-template-columns: 1fr 1fr; } }
 
@@ -282,7 +311,11 @@
             transition: var(--transition);
         }
 
-        input::placeholder { color: rgba(148, 163, 184, 0.5); }
+        .caps-input {
+            text-transform: uppercase;
+        }
+
+        input::placeholder { color: rgba(148, 163, 184, 0.5); text-transform: none; }
         select option { background: var(--bg-base); color: var(--text-main); }
 
         input:focus, select:focus {
@@ -290,6 +323,12 @@
             border-color: var(--accent);
             background: rgba(0, 0, 0, 0.6);
             box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+        }
+
+        input.invalid, select.invalid {
+            border-color: var(--error-color);
+            background: var(--error-bg);
+            box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.15);
         }
 
         /* CUSTOM RADIO BUTTONS */
@@ -572,27 +611,30 @@
         <div class="header-content">
             <span class="kicker">E-Sistem Pengurusan Kursus</span>
             <h1>Pendaftaran Peserta</h1>
-            <p>Sila isikan borang di bawah dengan tepat untuk tujuan tempahan tempat dan penyediaan sijil penyertaan anda.</p>
+            <p>Sila isikan borang di bawah dalam huruf besar dengan format yang tepat untuk tujuan tempahan tempat dan penyediaan sijil penyertaan.</p>
         </div>
 
         <div class="form-container" id="formWrapper">
             <div class="notice">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                Maklumat yang diberikan akan dilindungi dan digunakan secara eksklusif oleh urus setia EDHKN sahaja.
+                Sila gunakan HURUF BESAR bagi ruangan teks. Format No. K/P (900101-02-1234), No. Telefon (+60123456789) dan Emel yang sah adalah wajib.
             </div>
+
+            <div class="validation-banner" id="validationBanner" role="alert"></div>
             
-            <form id="registrationForm">
+            <form id="registrationForm" novalidate>
                 
                 <!-- Bahagian 1: Maklumat Kursus -->
                 <div class="section-body">
                     <div class="section-head">
                         <h2>Maklumat Modul Latihan</h2>
-                        <p>Sila nyatakan nama kursus yang anda ingin sertai.</p>
+                        <p>Sila nyatakan nama kursus yang anda ingin sertai (HURUF BESAR).</p>
                     </div>
                     
                     <div class="field">
                         <label for="kursus">Nama Kursus</label>
-                        <input type="text" id="kursus" name="Nama Kursus" required placeholder="Contoh: TLSM-BASIC, BLS, atau ATLS" autocomplete="off">
+                        <input type="text" id="kursus" name="Nama Kursus" class="caps-input" required placeholder="CONTOH: TLSM-BASIC, BLS ATAU ATLS" autocomplete="off">
+                        <span class="field-error" id="err-kursus"></span>
                     </div>
                 </div>
 
@@ -605,23 +647,29 @@
                     
                     <div class="field">
                         <label for="nama">Nama Penuh (Seperti Dalam K/P)</label>
-                        <input type="text" id="nama" name="Nama Penuh" required placeholder="Contoh: Ahmad bin Abu Bakar" autocomplete="name">
+                        <input type="text" id="nama" name="Nama Penuh" class="caps-input" required placeholder="CONTOH: AHMAD BIN ABU BAKAR" autocomplete="name">
+                        <span class="field-error" id="err-nama"></span>
                     </div>
 
                     <div class="field-row">
                         <div>
                             <label for="nokp">No. Kad Pengenalan</label>
-                            <input type="text" id="nokp" name="No KP" required placeholder="Contoh: 900101-02-1234">
+                            <input type="text" id="nokp" name="No KP" required maxlength="14" placeholder="900101-02-1234" inputmode="numeric">
+                            <span class="hint-text">Format wajib: 900101-02-1234</span>
+                            <span class="field-error" id="err-nokp"></span>
                         </div>
                         <div>
                             <label for="telefon">No. Telefon Bimbit</label>
-                            <input type="tel" id="telefon" name="Telefon" required placeholder="Contoh: 012-3456789">
+                            <input type="tel" id="telefon" name="Telefon" required maxlength="13" placeholder="+60123456789" inputmode="tel">
+                            <span class="hint-text">Format wajib: +60123456789</span>
+                            <span class="field-error" id="err-telefon"></span>
                         </div>
                     </div>
 
                     <div class="field">
-                        <label for="emel">Alamat Emel</label>
-                        <input type="email" id="emel" name="Emel" required placeholder="Contoh: nama@moh.gov.my" autocomplete="email">
+                        <label for="emel">Alamat Emel (Wajib)</label>
+                        <input type="email" id="emel" name="Emel" required placeholder="contoh: nama@moh.gov.my" autocomplete="email">
+                        <span class="field-error" id="err-emel"></span>
                     </div>
                 </div>
 
@@ -643,10 +691,12 @@
                                 <option>Penolong Pegawai Perawatan Kesihatan (PPK)</option>
                                 <option>Lain-lain</option>
                             </select>
+                            <span class="field-error" id="err-jawatan"></span>
                         </div>
                         <div>
                             <label for="tempat">Tempat Bertugas / Jabatan</label>
-                            <input type="text" id="tempat" name="Tempat Bertugas" required placeholder="Contoh: ED HK Kuala Nerang">
+                            <input type="text" id="tempat" name="Tempat Bertugas" class="caps-input" required placeholder="CONTOH: ED HK KUALA NERANG">
+                            <span class="field-error" id="err-tempat"></span>
                         </div>
                     </div>
 
@@ -657,6 +707,7 @@
                             <label><input type="radio" name="Diet" value="Vegetarian"> Vegetarian</label>
                             <label><input type="radio" name="Diet" value="Alahan"> Alahan Makanan / Lain-lain</label>
                         </div>
+                        <span class="field-error" id="err-diet"></span>
                     </div>
                 </div>
 
@@ -696,7 +747,7 @@
                 <span>EDHKN PORTAL Ver 2.0</span>
             </div>
 
-            <p class="footer-copyright">© 2026 <span>EDHKN</span>| All Rights Reserved | edhkn@moh.gov.my |</p>
+            <p class="footer-copyright">© 2026 <span> EDHKN </span>| All Rights Reserved </p>
         </div>
     </footer>
 
@@ -705,10 +756,189 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEYxrKlKT_ylQPn5WBi
 
 const form = document.getElementById('registrationForm');
 const submitBtn = document.getElementById('submitBtn');
+const validationBanner = document.getElementById('validationBanner');
+
+const capsInputs = document.querySelectorAll('.caps-input');
+const nokpInput = document.getElementById('nokp');
+const telefonInput = document.getElementById('telefon');
+const emelInput = document.getElementById('emel');
+
+const icRegex = /^\d{6}-\d{2}-\d{4}$/;
+const phoneRegex = /^\+60\d{9,10}$/;
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+// Paksa huruf besar secara langsung semasa menaip
+capsInputs.forEach(input => {
+    input.addEventListener('input', () => {
+        const start = input.selectionStart;
+        const end = input.selectionEnd;
+        input.value = input.value.toUpperCase();
+        input.setSelectionRange(start, end);
+        clearFieldError(input.id);
+    });
+});
+
+// Auto-format No. Kad Pengenalan kepada 900101-02-1234 jika pengguna menaip nombor sahaja
+nokpInput.addEventListener('input', () => {
+    let digits = nokpInput.value.replace(/\D/g, '').slice(0, 12);
+    let formatted = digits;
+    if (digits.length > 6 && digits.length <= 8) {
+        formatted = `${digits.slice(0, 6)}-${digits.slice(6)}`;
+    } else if (digits.length > 8) {
+        formatted = `${digits.slice(0, 6)}-${digits.slice(6, 8)}-${digits.slice(8)}`;
+    }
+    nokpInput.value = formatted;
+    clearFieldError('nokp');
+});
+
+// Format No. Telefon supaya sentiasa bermula dengan +60
+telefonInput.addEventListener('input', () => {
+    let val = telefonInput.value.replace(/[^\d+]/g, '');
+    if (val.startsWith('60') && !val.startsWith('+60')) {
+        val = '+' + val;
+    } else if (val.startsWith('0')) {
+        val = '+6' + val;
+    }
+    if (val.indexOf('+') > 0) {
+        val = val.replace(/\+/g, '');
+    }
+    telefonInput.value = val.slice(0, 13);
+    clearFieldError('telefon');
+});
+
+emelInput.addEventListener('input', () => clearFieldError('emel'));
+document.getElementById('jawatan').addEventListener('change', () => clearFieldError('jawatan'));
+document.querySelectorAll('input[name="Diet"]').forEach(radio => {
+    radio.addEventListener('change', () => clearFieldError('diet'));
+});
+
+function setFieldError(id, message) {
+    const el = document.getElementById(id);
+    const errEl = document.getElementById(`err-${id}`);
+    if (el && (el.tagName === 'INPUT' || el.tagName === 'SELECT')) {
+        el.classList.add('invalid');
+    }
+    if (errEl) {
+        errEl.textContent = `Amaran: ${message}`;
+        errEl.style.display = 'block';
+    }
+}
+
+function clearFieldError(id) {
+    const el = document.getElementById(id);
+    const errEl = document.getElementById(`err-${id}`);
+    if (el && (el.tagName === 'INPUT' || el.tagName === 'SELECT')) {
+        el.classList.remove('invalid');
+    }
+    if (errEl) {
+        errEl.textContent = '';
+        errEl.style.display = 'none';
+    }
+    validationBanner.style.display = 'none';
+}
+
+function clearAllErrors() {
+    document.querySelectorAll('.field-error').forEach(err => {
+        err.textContent = '';
+        err.style.display = 'none';
+    });
+    document.querySelectorAll('input.invalid, select.invalid').forEach(inp => {
+        inp.classList.remove('invalid');
+    });
+    validationBanner.style.display = 'none';
+}
+
+function validateForm() {
+    clearAllErrors();
+    const errors = [];
+    let firstInvalidEl = null;
+
+    const kursusVal = document.getElementById('kursus').value.trim().toUpperCase();
+    const namaVal = document.getElementById('nama').value.trim().toUpperCase();
+    const nokpVal = nokpInput.value.trim();
+    const telefonVal = telefonInput.value.trim();
+    const emelVal = emelInput.value.trim();
+    const jawatanVal = document.getElementById('jawatan').value;
+    const tempatVal = document.getElementById('tempat').value.trim().toUpperCase();
+    const dietChecked = form.querySelector('input[name="Diet"]:checked');
+
+    if (!kursusVal) {
+        const msg = 'Nama Kursus wajib diisi dalam HURUF BESAR.';
+        setFieldError('kursus', msg);
+        errors.push(msg);
+        if (!firstInvalidEl) firstInvalidEl = document.getElementById('kursus');
+    }
+
+    if (!namaVal) {
+        const msg = 'Nama Penuh wajib diisi dalam HURUF BESAR.';
+        setFieldError('nama', msg);
+        errors.push(msg);
+        if (!firstInvalidEl) firstInvalidEl = document.getElementById('nama');
+    }
+
+    if (!icRegex.test(nokpVal)) {
+        const msg = 'No. Kad Pengenalan mesti mengikut format 900101-02-1234.';
+        setFieldError('nokp', msg);
+        errors.push(msg);
+        if (!firstInvalidEl) firstInvalidEl = nokpInput;
+    }
+
+    if (!phoneRegex.test(telefonVal)) {
+        const msg = 'No. Telefon Bimbit mesti bermula dengan +60 diikuti 9–10 digit (contoh: +60123456789).';
+        setFieldError('telefon', msg);
+        errors.push(msg);
+        if (!firstInvalidEl) firstInvalidEl = telefonInput;
+    }
+
+    if (!emelVal) {
+        const msg = 'Alamat Emel adalah wajib diisi.';
+        setFieldError('emel', msg);
+        errors.push(msg);
+        if (!firstInvalidEl) firstInvalidEl = emelInput;
+    } else if (!emailRegex.test(emelVal)) {
+        const msg = 'Format Alamat Emel tidak sah (contoh: nama@moh.gov.my).';
+        setFieldError('emel', msg);
+        errors.push(msg);
+        if (!firstInvalidEl) firstInvalidEl = emelInput;
+    }
+
+    if (!jawatanVal) {
+        const msg = 'Sila pilih Jawatan anda.';
+        setFieldError('jawatan', msg);
+        errors.push(msg);
+        if (!firstInvalidEl) firstInvalidEl = document.getElementById('jawatan');
+    }
+
+    if (!tempatVal) {
+        const msg = 'Tempat Bertugas / Jabatan wajib diisi dalam HURUF BESAR.';
+        setFieldError('tempat', msg);
+        errors.push(msg);
+        if (!firstInvalidEl) firstInvalidEl = document.getElementById('tempat');
+    }
+
+    if (!dietChecked) {
+        const msg = 'Sila pilih Keperluan Diet / Makanan.';
+        setFieldError('diet', msg);
+        errors.push(msg);
+        if (!firstInvalidEl) firstInvalidEl = form.querySelector('input[name="Diet"]');
+    }
+
+    if (errors.length > 0) {
+        validationBanner.innerHTML = `<strong>AMARAN FORMAT BORANG:</strong><br>• ${errors.join('<br>• ')}`;
+        validationBanner.style.display = 'block';
+        if (firstInvalidEl) {
+            firstInvalidEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (typeof firstInvalidEl.focus === 'function') firstInvalidEl.focus();
+        }
+        return false;
+    }
+
+    return true;
+}
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (!form.reportValidity()) return;
+    if (!validateForm()) return;
 
     submitBtn.disabled = true;
     submitBtn.innerHTML = 'Memproses Pendaftaran <span style="display:inline-block; animation: pulse 1s infinite;">...</span>';
@@ -718,14 +948,14 @@ form.addEventListener('submit', async (e) => {
     const payload = {
         formType: 'registration',
         timestamp: new Date().toLocaleString('ms-MY', { timeZone: 'Asia/Kuala_Lumpur' }),
-        kursus: data.get('Nama Kursus'),
-        nama: data.get('Nama Penuh'),
-        nokp: data.get('No KP'),
-        telefon: data.get('Telefon'),
-        emel: data.get('Emel'),
-        jawatan: data.get('Jawatan'),
-        tempat: data.get('Tempat Bertugas'),
-        diet: data.get('Diet')
+        kursus: (data.get('Nama Kursus') || '').trim().toUpperCase(),
+        nama: (data.get('Nama Penuh') || '').trim().toUpperCase(),
+        nokp: (data.get('No KP') || '').trim(),
+        telefon: (data.get('Telefon') || '').trim(),
+        emel: (data.get('Emel') || '').trim(),
+        jawatan: (data.get('Jawatan') || '').trim().toUpperCase(),
+        tempat: (data.get('Tempat Bertugas') || '').trim().toUpperCase(),
+        diet: (data.get('Diet') || '').trim().toUpperCase()
     };
 
     try {
@@ -737,6 +967,7 @@ form.addEventListener('submit', async (e) => {
 
         form.style.display = 'none';
         document.querySelector('.notice').style.display = 'none';
+        validationBanner.style.display = 'none';
         document.getElementById('result').style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -748,8 +979,13 @@ form.addEventListener('submit', async (e) => {
     }
 });
 
+form.addEventListener('reset', () => {
+    clearAllErrors();
+});
+
 document.getElementById('newFormBtn').addEventListener('click', () => {
     form.reset();
+    clearAllErrors();
     form.style.display = 'block';
     document.querySelector('.notice').style.display = 'flex';
     document.getElementById('result').style.display = 'none';
